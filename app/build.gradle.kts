@@ -6,17 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk = Config.compile_sdk
     buildToolsVersion = Config.build_tool_version
 
     defaultConfig {
         compileSdk
         applicationId = Config.application_id
-        minSdk = Config.min_sdk
-        targetSdk = Config.target_sdk
-        versionCode = Releases.version_code
-        versionName = Releases.version_name
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,11 +22,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-
-    compileOptions {
-        sourceCompatibility(Config.java_version)
-        targetCompatibility(Config.java_version)
     }
 
     kotlinOptions {
@@ -49,8 +38,8 @@ dependencies {
     androidTestImplementation(TestImpl.runner)
     androidTestImplementation(TestImpl.espresso)
 
-    implementation(Hilt.hiltCompiler)
     implementation(Hilt.hiltAndroid)
-    implementation(Hilt.hiltCompiler2)
+    kapt(Hilt.hiltCompiler)
+    kapt(Hilt.hiltCompiler2)
 
 }
