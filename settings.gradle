@@ -16,8 +16,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FavTownLists"
 include ':app'
-include ':screens'
 include ':model'
-include ':utlis'
 include ':core'
 include ':repository'
+include ':utils'

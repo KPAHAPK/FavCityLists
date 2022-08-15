@@ -1,10 +1,12 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
 }
 
 
 dependencies {
+    implementation(project(Modules.utils))
+
 
     implementation(Kotlin.stdlib)
     implementation(Kotlin.core)

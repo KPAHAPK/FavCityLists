@@ -19,7 +19,6 @@ object Modules {
     const val core = ":core"
     const val model = ":model"
     const val utils = ":utils"
-    const val screens = ":screens"
     const val repository = ":repository"
 }
 

@@ -38,8 +38,23 @@ dependencies {
     androidTestImplementation(TestImpl.runner)
     androidTestImplementation(TestImpl.espresso)
 
+    //Hilt
     implementation(Hilt.hiltAndroid)
     kapt(Hilt.hiltCompiler)
     kapt(Hilt.hiltCompiler2)
 
+    // Room
+    kapt(Room.sqlite_jdbc)
+    implementation(Room.runtime)
+    kapt(Room.compiler)
+    implementation(Room.room_ktx)
+
+    //Coroutines
+    implementation(Kotlin.coroutines_core)
+    implementation(Kotlin.coroutines_android)
+
+    implementation(project(Modules.core))
+    implementation(project(Modules.model))
+    implementation(project(Modules.repository))
+    implementation(project(Modules.utils))
 }

@@ -1,4 +1,4 @@
-package com.example.favtownlists.utlis
+package com.example.favtownlists.utils
 
 import org.junit.Test
 
