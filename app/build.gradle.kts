@@ -41,6 +41,7 @@ dependencies {
     //Hilt
     implementation(Hilt.hiltAndroid)
     kapt(Hilt.hiltCompiler)
+    kapt(Hilt.hiltViewModel)
     kapt(Hilt.hiltCompiler2)
 
     // Room
@@ -52,6 +53,12 @@ dependencies {
     //Coroutines
     implementation(Kotlin.coroutines_core)
     implementation(Kotlin.coroutines_android)
+
+    //KTX
+    implementation(Kotlin.activityKTX)
+    implementation(Kotlin.fragmentKTX)
+    implementation(Kotlin.viewModelKTX)
+
 
     //ViewBinding
     implementation(ViewBindingPropertyDelegate.viewBindingPropertyDelegate)

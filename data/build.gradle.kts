@@ -17,6 +17,9 @@ dependencies {
     kapt(Hilt.hiltCompiler)
     kapt(Hilt.hiltCompiler2)
 
+    //Cicerone
+    implementation(Cicerone.cicerone)
+
     implementation(Kotlin.stdlib)
     implementation(Kotlin.core)
     implementation(Design.appcompat)
