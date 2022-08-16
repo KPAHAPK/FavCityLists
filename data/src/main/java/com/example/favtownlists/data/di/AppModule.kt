@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.favtownlists.data.data_source.city.CityDatabase
+import com.example.favtownlists.data.data_source.AppDataBase
+import com.example.favtownlists.data.data_source.InitCustomList
 import com.example.favtownlists.data.data_source.city.InitCityList
-import com.example.favtownlists.data.data_source.citylist.CustomCityListDatabase
 import com.example.favtownlists.data.data_source.mappers.toCityEntity
 import dagger.Module
 import dagger.Provides
@@ -14,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Singleton
 
@@ -23,30 +24,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCityDatabase(app: Application): CityDatabase {
+    fun provideAppDatabase(app: Application): AppDataBase {
         return Room.databaseBuilder(
             app,
-            CityDatabase::class.java,
-            CityDatabase.DATABASE_NAME
+            AppDataBase::class.java,
+            AppDataBase.DATABASE_NAME
         )
-            .addCallback(object : RoomDatabase.Callback(){
+            .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        provideCityDatabase(app).cityDao()
-                            .insertCities(InitCityList().initCityList.map { it.toCityEntity() })
+                        val job = launch {
+                            provideAppDatabase(app).cityDao()
+                                .insertCities(InitCityList.initCityList)
+                        }
+                        job.join()
+                        provideAppDatabase(app).customCityListDao()
+                            .insertCustomList(InitCustomList.initCustomList)
+
                     }
                 }
             })
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideCityListDatabase(app: Application): CustomCityListDatabase {
-        return Room.databaseBuilder(
-            app,
-            CustomCityListDatabase::class.java,
-            CustomCityListDatabase.DATABASE_NAME
-        ).build()
     }
 }

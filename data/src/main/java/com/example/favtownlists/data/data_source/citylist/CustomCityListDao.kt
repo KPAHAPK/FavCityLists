@@ -1,6 +1,7 @@
 package com.example.favtownlists.data.data_source.citylist
 
 import androidx.room.*
+import com.example.favtownlists.data.data_source.CustomList
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,4 +18,11 @@ interface CustomCityListDao {
 
     @Delete
     suspend fun delete(entity: CustomCityListEntity)
+
+    @Transaction
+    @Query("SELECT * FROM custom_city_list")
+    fun getCustomList(): Flow<List<CustomList>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCustomList(customList: CustomList)
 }

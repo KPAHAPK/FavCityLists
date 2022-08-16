@@ -1,9 +1,10 @@
 package com.example.favtownlists.data.data_source.city
 
+import com.example.favtownlists.data.data_source.mappers.toCityEntity
 import com.example.favtownlists.repository.room.model.CityModel
 
-class InitCityList{
-    val initCityList: List<CityModel> = listOf(
+object InitCityList{
+    val initCityList: List<CityEntity> = listOf(
         CityModel(name ="Лондон", foundingDate = "47 год"),
         CityModel(name ="Нью-Йорк", foundingDate = "1624"),
         CityModel(name ="Париж", foundingDate = "III век до н. э."),
@@ -19,5 +20,5 @@ class InitCityList{
         CityModel(name ="Санкт-Петербург", foundingDate = "1703"),
         CityModel(name ="Прага", foundingDate = "VIII век"),
         CityModel(name ="Киев", foundingDate = "VI/VII—X века"),
-    )
+    ).map { it.toCityEntity() }
 }

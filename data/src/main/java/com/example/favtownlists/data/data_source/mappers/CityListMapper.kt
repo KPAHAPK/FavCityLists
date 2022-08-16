@@ -5,13 +5,11 @@ import com.example.favtownlists.repository.room.model.CustomCityListModel
 
 fun CustomCityListModel.toCityListEntity(): CustomCityListEntity{
     return CustomCityListEntity(
-        name = name,
-        cities = content
+        name = name
     )
 }
 fun CustomCityListEntity.toCityListModel(): CustomCityListModel{
     return CustomCityListModel(
-        name = name,
-        content = cities
+        name = name
     )
 }
