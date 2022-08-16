@@ -14,7 +14,7 @@ dependencies {
     androidTestImplementation(TestImpl.espresso)
 
 
-    implementation(project(Modules.model))
+    implementation(project(Modules.data))
     implementation(project(Modules.utils))
 
 }

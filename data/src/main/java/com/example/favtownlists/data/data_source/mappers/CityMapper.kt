@@ -9,3 +9,10 @@ fun CityEntity.toCityModel(): CityModel {
         foundingDate = foundingDate
     )
 }
+
+fun CityModel.toCityEntity(): CityEntity {
+    return CityEntity(
+        name = name,
+        foundingDate = foundingDate
+    )
+}

@@ -32,9 +32,9 @@ object Versions {
     const val stdlib = "1.5.21"
     const val coroutinesCore = "1.4.3"
     const val coroutinesAndroid = "1.4.3"
-
-    //Coil
-    const val coil = "2.1.0"
+    const val activityKTX = "1.5.1"
+    const val fragmentKTX = "1.5.2"
+    const val viewModelKTX = "2.5.1"
 
     //Room
     const val sqlite_jdbc = "3.34.0"
@@ -50,7 +50,17 @@ object Versions {
     //Hilt
     const val hiltAndroid = "2.42"
     const val hiltCompiler = "2.42"
+    const val hiltViewModel = "1.0.0"
     const val hiltCompiler2 = "1.0.0"
+
+    //ViewBinding
+    const val viewBinding = "1.5.6"
+
+    //Cicerone
+    const val cicerone = "7.1"
+
+    //Gson
+    const val gson = "2.9.1"
 
 }
 
@@ -66,10 +76,9 @@ object Kotlin {
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}"
     const val coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}"
-}
-
-object Coil {
-    const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val activityKTX = "androidx.activity:activity-ktx:${Versions.activityKTX}"
+    const val fragmentKTX = "androidx.fragment:fragment-ktx:${Versions.fragmentKTX}"
+    const val viewModelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKTX}"
 }
 
 object Room {
@@ -88,5 +97,19 @@ object TestImpl {
 object Hilt {
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hiltCompiler}"
+    const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltViewModel}"
     const val hiltCompiler2 = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler2}"
+}
+
+object ViewBindingPropertyDelegate {
+    const val viewBindingPropertyDelegate =
+        "com.github.kirich1409:viewbindingpropertydelegate:${Versions.viewBinding}"
+}
+
+object Cicerone{
+    const val cicerone = "com.github.terrakok:cicerone:${Versions.cicerone}"
+}
+
+object Gson{
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 }

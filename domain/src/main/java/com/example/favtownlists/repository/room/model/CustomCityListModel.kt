@@ -1,7 +1,7 @@
 package com.example.favtownlists.repository.room.model
 
-data class CityModel(
+data class CustomCityListModel(
     val id: Int? = null,
-    val name: String,
-    val foundingDate: String,
+    val name: String
 )
+
