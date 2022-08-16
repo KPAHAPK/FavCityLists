@@ -1,12 +1,21 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
 }
 
 
 dependencies {
-    implementation(project(Modules.utils))
+    // Room
+    kapt(Room.sqlite_jdbc)
+    implementation(Room.runtime)
+    kapt(Room.compiler)
+    implementation(Room.room_ktx)
 
+    //Hilt
+    implementation(Hilt.hiltAndroid)
+    kapt(Hilt.hiltCompiler)
+    kapt(Hilt.hiltCompiler2)
 
     implementation(Kotlin.stdlib)
     implementation(Kotlin.core)
@@ -15,4 +24,8 @@ dependencies {
     implementation(TestImpl.junit)
     androidTestImplementation(TestImpl.runner)
     androidTestImplementation(TestImpl.espresso)
+
+    implementation(project(Modules.utils))
+    implementation(project(Modules.domain))
+
 }

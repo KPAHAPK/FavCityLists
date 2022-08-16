@@ -53,8 +53,7 @@ dependencies {
     implementation(Kotlin.coroutines_core)
     implementation(Kotlin.coroutines_android)
 
-    implementation(project(Modules.core))
-    implementation(project(Modules.model))
-    implementation(project(Modules.repository))
+    implementation(project(Modules.data))
+    implementation(project(Modules.domain))
     implementation(project(Modules.utils))
 }
