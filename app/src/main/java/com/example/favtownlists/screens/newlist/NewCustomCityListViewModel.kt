@@ -1,4 +1,4 @@
 package com.example.favtownlists.screens.newlist
 
-class NewListViewModel {
+class NewCustomCityListViewModel {
 }

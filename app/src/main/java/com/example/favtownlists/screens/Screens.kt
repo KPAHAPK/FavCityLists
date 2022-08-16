@@ -3,8 +3,8 @@ package com.example.favtownlists.screens
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.example.favtownlists.screens.main.CityListFragment
-import com.example.favtownlists.screens.mylist.MyListsFragment
-import com.example.favtownlists.screens.newlist.NewListFragment
+import com.example.favtownlists.screens.mylist.CustomCityListsFragment
+import com.example.favtownlists.screens.newlist.NewCustomCityListFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
@@ -16,13 +16,13 @@ object Screens {
 
     class MyListsScreen() : FragmentScreen {
         override fun createFragment(factory: FragmentFactory): Fragment {
-            return MyListsFragment.newInstance()
+            return CustomCityListsFragment.newInstance()
         }
     }
 
     class NewListScreen() : FragmentScreen {
         override fun createFragment(factory: FragmentFactory): Fragment {
-            return NewListFragment.newInstance()
+            return NewCustomCityListFragment.newInstance()
         }
     }
 }
