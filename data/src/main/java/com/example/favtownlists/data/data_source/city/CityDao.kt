@@ -16,5 +16,5 @@ interface CityDao {
     suspend fun deleteCity()
 
     @Query("SELECT * FROM cities")
-    suspend fun getCity(id: Int?): CityModel
+    suspend fun getCities(): List<CityEntity>
 }
