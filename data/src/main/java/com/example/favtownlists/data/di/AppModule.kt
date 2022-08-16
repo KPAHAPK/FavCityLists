@@ -1,4 +1,4 @@
-package com.example.favtownlists.data.data_source.di
+package com.example.favtownlists.data.di
 
 import android.app.Application
 import androidx.room.Room
@@ -20,7 +20,7 @@ object AppModule {
         return Room.databaseBuilder(
             app,
             CityDatabase::class.java,
-            "citydb.db"
+            CityDatabase.DATABASE_NAME
         ).build()
     }
 
@@ -30,7 +30,7 @@ object AppModule {
         return Room.databaseBuilder(
             app,
             CityListDatabase::class.java,
-            "citylistdb.db"
+            CityListDatabase.DATABASE_NAME
         ).build()
     }
 }

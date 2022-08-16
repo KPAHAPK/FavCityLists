@@ -1,7 +1,7 @@
-package com.example.favtownlists.data.data_source.di
+package com.example.favtownlists.data.di
 
-import com.example.favtownlists.data.data_source.repository.CityListRepositoryImpl
-import com.example.favtownlists.data.data_source.repository.CityRepositoryImpl
+import com.example.favtownlists.data.repository.CityListRepositoryImpl
+import com.example.favtownlists.data.repository.CityRepositoryImpl
 import com.example.favtownlists.repository.room.CityListRepository
 import com.example.favtownlists.repository.room.CityRepository
 import dagger.Binds

@@ -59,6 +59,9 @@ object Versions {
     //Cicerone
     const val cicerone = "7.1"
 
+    //Gson
+    const val gson = "2.9.1"
+
 }
 
 object Design {
@@ -105,4 +108,8 @@ object ViewBindingPropertyDelegate {
 
 object Cicerone{
     const val cicerone = "com.github.terrakok:cicerone:${Versions.cicerone}"
+}
+
+object Gson{
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 }

@@ -41,7 +41,6 @@ dependencies {
     //Hilt
     implementation(Hilt.hiltAndroid)
     kapt(Hilt.hiltCompiler)
-    kapt(Hilt.hiltViewModel)
     kapt(Hilt.hiltCompiler2)
 
     // Room

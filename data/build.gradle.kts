@@ -20,6 +20,9 @@ dependencies {
     //Cicerone
     implementation(Cicerone.cicerone)
 
+    //Gson
+    implementation(Gson.gson)
+
     implementation(Kotlin.stdlib)
     implementation(Kotlin.core)
     implementation(Design.appcompat)

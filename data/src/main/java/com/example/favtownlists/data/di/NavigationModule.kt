@@ -1,4 +1,4 @@
-package com.example.favtownlists.data.data_source.di
+package com.example.favtownlists.data.di
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder

@@ -10,6 +10,7 @@ class CityListConverter {
     fun fromCityList(cityList: CityList): String {
         return Gson().toJson(cityList)
     }
+
     @TypeConverter
     fun toCityList(data: String): CityList {
         return Gson().fromJson(data, CityList::class.java)

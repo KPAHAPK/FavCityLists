@@ -10,15 +10,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private val binding by viewBinding(ActivityMainBinding::class.java)
     private val viewModel: MainViewModel by viewModels()
 
     private val navigator = AppNavigator(this, R.id.fragment_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
         if (savedInstanceState == null){

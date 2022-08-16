@@ -13,8 +13,8 @@ data class CityListEntity(
     val id: Int? = null,
     @ColumnInfo(name = "name")
     val name: String,
-    @TypeConverters(CityListConverter::class)
     @ColumnInfo(name = "cities")
+    @field:TypeConverters(CityListConverter::class)
     val cities: CityList
 )
 

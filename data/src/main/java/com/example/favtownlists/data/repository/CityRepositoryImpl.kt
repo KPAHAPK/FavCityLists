@@ -1,4 +1,4 @@
-package com.example.favtownlists.data.data_source.repository
+package com.example.favtownlists.data.repository
 
 import com.example.favtownlists.data.data_source.city.CityDatabase
 import com.example.favtownlists.data.data_source.mappers.toCityModel

@@ -10,7 +10,7 @@ import com.example.favtownlists.repository.room.model.CityModel
 interface CityDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCity(city: CityModel)
+    suspend fun insertCity(city: CityEntity)
 
     @Query("DELETE FROM cities")
     suspend fun deleteCity()

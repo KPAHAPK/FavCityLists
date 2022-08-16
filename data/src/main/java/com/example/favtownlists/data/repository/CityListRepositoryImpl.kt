@@ -1,7 +1,6 @@
-package com.example.favtownlists.data.data_source.repository
+package com.example.favtownlists.data.repository
 
 import com.example.favtownlists.data.data_source.citylist.CityListDatabase
-import com.example.favtownlists.data.data_source.citylist.CityListEntity
 import com.example.favtownlists.data.data_source.mappers.toCityListEntity
 import com.example.favtownlists.data.data_source.mappers.toCityListModel
 import com.example.favtownlists.repository.room.CityListRepository
