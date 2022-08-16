@@ -6,6 +6,7 @@ import com.example.favtownlists.repository.room.CustomCityListRepository
 import com.example.favtownlists.screens.Screens
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,14 +18,17 @@ class CityListViewModel @Inject constructor(
     @Inject
     lateinit var router: Router
 
+    private var getCustomCityListJob: Job? = null
+
     fun routeToMyListsScreen() {
         router.navigateTo(Screens.MyListsScreen())
     }
 
     fun getCityList() {
-        viewModelScope.coroutineContext.cancelChildren()
-        viewModelScope.launch {
-            repository.getAllList()
+        getCustomCityListJob?.cancel()
+        repository.getAllList().onEach {
+            customCityList ->
+
         }
     }
 

@@ -23,6 +23,10 @@ dependencies {
     //Gson
     implementation(Gson.gson)
 
+    //Coroutines
+    implementation(Kotlin.coroutines_core)
+    implementation(Kotlin.coroutines_android)
+
     implementation(Kotlin.stdlib)
     implementation(Kotlin.core)
     implementation(Design.appcompat)

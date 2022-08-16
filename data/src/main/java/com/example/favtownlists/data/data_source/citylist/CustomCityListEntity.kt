@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.favtownlists.repository.room.model.CitiesInList
 
-@Entity(tableName = "citylist")
+@Entity(tableName = "custom_city_list")
 data class CustomCityListEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

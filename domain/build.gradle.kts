@@ -7,6 +7,10 @@ plugins {
 
 dependencies {
 
+    //Coroutines
+    implementation(Kotlin.coroutines_core)
+    implementation(Kotlin.coroutines_android)
+
     implementation("com.google.code.gson:gson:2.9.0")
 
     implementation("androidx.core:core-ktx:1.7.0")

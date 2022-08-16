@@ -8,7 +8,14 @@ class InitCustomCityList {
     val initMyCityList: List<CustomCityListModel> = listOf(
         CustomCityListModel(
             name = "Европа",
-            content = CitiesInList(listOf(InitCityList().initCityList[1]))
-        ),
+            content = CitiesInList(
+                listOf(
+                    InitCityList().initCityList[1],
+                    InitCityList().initCityList[3],
+                    InitCityList().initCityList[5],
+                    InitCityList().initCityList[6]
+                )
+            )
+        )
     )
 }

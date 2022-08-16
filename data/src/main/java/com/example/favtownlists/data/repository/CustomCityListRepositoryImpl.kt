@@ -5,6 +5,9 @@ import com.example.favtownlists.data.data_source.mappers.toCityListEntity
 import com.example.favtownlists.data.data_source.mappers.toCityListModel
 import com.example.favtownlists.repository.room.CustomCityListRepository
 import com.example.favtownlists.repository.room.model.CustomCityListModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class CustomCityListRepositoryImpl @Inject constructor(
@@ -21,7 +24,8 @@ class CustomCityListRepositoryImpl @Inject constructor(
         return dao.insertCityList(cityListModel.toCityListEntity())
     }
 
-    override suspend fun getAllList(): List<CustomCityListModel> {
-        return dao.getAllList().map { it.toCityListModel() }
+    override suspend fun getAllList(): Flow<List<CustomCityListModel>> {
+        return dao.getAllList()
+            .map { entityList -> entityList.map { entity -> entity.toCityListModel() } }
     }
 }
