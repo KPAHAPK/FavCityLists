@@ -53,6 +53,12 @@ dependencies {
     implementation(Kotlin.coroutines_core)
     implementation(Kotlin.coroutines_android)
 
+    //ViewBinding
+    implementation(ViewBindingPropertyDelegate.viewBindingPropertyDelegate)
+
+    //Cicerone
+    implementation(Cicerone.cicerone)
+
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
     implementation(project(Modules.utils))

@@ -52,6 +52,12 @@ object Versions {
     const val hiltCompiler = "2.42"
     const val hiltCompiler2 = "1.0.0"
 
+    //ViewBinding
+    const val noReflection = "1.5.6"
+
+    //Cicerone
+    const val cicerone = "7.1"
+
 }
 
 object Design {
@@ -89,4 +95,13 @@ object Hilt {
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hiltCompiler}"
     const val hiltCompiler2 = "androidx.hilt:hilt-compiler:${Versions.hiltCompiler2}"
+}
+
+object ViewBindingPropertyDelegate {
+    const val viewBindingPropertyDelegate =
+        "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.noReflection}"
+}
+
+object Cicerone{
+    const val cicerone = "com.github.terrakok:cicerone:${Versions.cicerone}"
 }
