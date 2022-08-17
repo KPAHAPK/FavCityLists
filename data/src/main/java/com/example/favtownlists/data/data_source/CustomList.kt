@@ -14,9 +14,11 @@ data class CustomList(
         parentColumn = "city_list_info_id",
         entity = CityEntity::class,
         entityColumn = "city_id",
-        associateBy = Junction(CustomListCrossRef::class,
-        parentColumn = "city_list_info_id",
-        entityColumn = "city_id")
+        associateBy = Junction(
+            value = CustomListCrossRef::class,
+            parentColumn = "city_list_info_id",
+            entityColumn = "city_id"
+        )
     )
     val cities: List<CityEntity>
 )

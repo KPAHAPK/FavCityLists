@@ -1,23 +1,33 @@
 package com.example.favtownlists.data.repository
 
-import com.example.favtownlists.data.data_source.AppDataBase
+import com.example.favtownlists.data.data_source.CityListsDataBase
+import com.example.favtownlists.data.data_source.city.CityEntity
+import com.example.favtownlists.data.data_source.mappers.toCityEntity
 import com.example.favtownlists.data.data_source.mappers.toCityModel
 import com.example.favtownlists.repository.room.CityRepository
 import com.example.favtownlists.repository.room.model.CityModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class CityListRepositoryImpl @Inject constructor(
-    val db: AppDataBase
+    private val db: CityListsDataBase
 ) : CityRepository {
-    override suspend fun getData() : Flow<List<CityModel>> {
-        return flow {
-            val cityList = db.mainDao().getCities()
-            emit(cityList.map { it.toCityModel() })
+
+    val dao = db.mainDao
+
+    override fun getCities() : Flow<List<CityModel>> {
+        val entityFlow: Flow<List<CityEntity>> = dao.getCities()
+        val modelFlow = entityFlow.map { entityList ->
+            entityList.map { city->
+                city.toCityModel()
+            }
         }
+        return modelFlow
+    }
+
+    override suspend fun insertCity(city: CityModel) {
+        dao.insertCity(city.toCityEntity())
     }
 }

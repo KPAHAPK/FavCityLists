@@ -1,8 +1,8 @@
-package com.example.favtownlists.data.data_source.citylist
+package com.example.favtownlists.data.data_source
 
 import androidx.room.*
-import com.example.favtownlists.data.data_source.CustomList
 import com.example.favtownlists.data.data_source.city.CityEntity
+import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
 import com.example.favtownlists.data.data_source.crossref.CustomListCrossRef
 import kotlinx.coroutines.flow.Flow
 
@@ -27,30 +27,25 @@ interface MainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCrossRefs(crossRefs: List<CustomListCrossRef>)
 
-    @Query("SELECT * FROM cities")
-    suspend fun getCities(): List<CityEntity>
-
     @Query("SELECT * FROM cities WHERE name = :name")
-    suspend fun getCity(name: CityEntity): CityEntity
+    fun getCity(name: String): Flow<CityEntity>
+
+    @Query("SELECT * FROM cities")
+    fun getCities(): Flow<List<CityEntity>>
 
     @Query("SELECT * FROM city_list_info WHERE name = :name")
-    suspend fun getCityListInfo(name: String): CityListInfoEntity
+    fun getCityListInfo(name: String): Flow<CityListInfoEntity>
 
     @Query("SELECT * FROM city_list_info")
-    suspend fun getAllCityListInfos(): List<CityListInfoEntity>
+    fun getAllCityListInfos(): Flow<List<CityListInfoEntity>>
 
     @Transaction
     @Query("SELECT * FROM city_list_info WHERE name LIKE :name")
-    suspend fun getCustomList(name: String): CustomList
+    fun getCustomList(name: String): Flow<CustomList>
 
     @Transaction
     @Query("SELECT * FROM city_list_info")
-    suspend fun getCustomLists(): List<CustomList>
-
-//    @Transaction
-//    suspend fun insertCustomListWithCities(customList: CustomList, cities: List<CityEntity>){
-//        val listId = insertCityListInfo()
-//    }
+    fun getCustomLists(): Flow<List<CustomList>>
 
     @Delete
     suspend fun deleteCity(city: CityEntity)
@@ -67,9 +62,11 @@ interface MainDao {
     @Delete
     suspend fun deleteCrossRef(crossRef: CustomListCrossRef)
 
+    @Transaction
     @Query("DELETE FROM custom_list_cross_ref WHERE city_list_info_id = :customListId")
     suspend fun deleteCustomListById(customListId: Int)
 
+    @Transaction
     @Query("DELETE FROM custom_list_cross_ref WHERE city_list_info_id = :customListId AND city_id = :cityId")
     suspend fun deleteCityFromCustomList(customListId: Int, cityId: Int)
 }

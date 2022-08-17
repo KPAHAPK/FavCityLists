@@ -7,7 +7,6 @@ plugins {
 
 dependencies {
     // Room
-    kapt(Room.sqlite_jdbc)
     implementation(Room.runtime)
     kapt(Room.compiler)
     implementation(Room.room_ktx)

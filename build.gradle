@@ -34,7 +34,14 @@ subprojects {
                 defaultConfig {
                     minSdkVersion Config.min_sdk
                     targetSdkVersion Config.target_sdk
+                    javaCompileOptions {
+                        annotationProcessorOptions {
+                            arguments += ["room.schemaLocation":
+                                                 "$projectDir/schemas".toString()]
+                        }
+                    }
                 }
+
 
                 compileOptions {
                     sourceCompatibility Config.java_version
@@ -49,7 +56,6 @@ subprojects {
         }
     }
 }
-
 
 
 task clean(type: Delete) {
