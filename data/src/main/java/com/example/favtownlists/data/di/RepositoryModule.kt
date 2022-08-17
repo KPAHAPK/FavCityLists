@@ -1,9 +1,9 @@
 package com.example.favtownlists.data.di
 
-import com.example.favtownlists.data.repository.CustomCityListRepositoryImpl
+import com.example.favtownlists.data.repository.CityListInfoRepositoryImpl
 import com.example.favtownlists.data.repository.CityListRepositoryImpl
-import com.example.favtownlists.repository.room.CustomCityListRepository
-import com.example.favtownlists.repository.room.CityListRepository
+import com.example.favtownlists.repository.room.CityListInfoRepository
+import com.example.favtownlists.repository.room.CityRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,9 +16,9 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindCityListRepository(cityListRepositoryImpl: CustomCityListRepositoryImpl): CustomCityListRepository
+    abstract fun bindCityListRepository(cityListRepositoryImpl: CityListInfoRepositoryImpl): CityListInfoRepository
 
     @Binds
     @Singleton
-    abstract fun bindCityRepository(cityRepositoryImpl: CityListRepositoryImpl): CityListRepository
+    abstract fun bindCityRepository(cityRepositoryImpl: CityListRepositoryImpl): CityRepository
 }
