@@ -5,15 +5,15 @@ import com.example.favtownlists.data.data_source.crossref.CustomListCrossRefEnti
 import com.example.favtownlists.repository.room.model.CustomCityListModel
 import com.example.favtownlists.repository.room.model.CustomListCrossRefModel
 
-fun CustomListCrossRefEntity.toCustomCityListModel(): CustomListCrossRefModel {
-    return CustomListCrossRefModel(
+fun CustomListCrossRefModel.toCustomCityLis(): CustomListCrossRefEntity {
+    return CustomListCrossRefEntity(
         cityId = cityId,
         cityListInfoId = cityListInfoId
     )
 }
 
-fun CustomListCrossRefModel.toCustomCityLis(): CustomListCrossRefEntity {
-    return CustomListCrossRefEntity(
+fun CustomListCrossRefEntity.toCustomCityListModel(): CustomListCrossRefModel {
+    return CustomListCrossRefModel(
         cityId = cityId,
         cityListInfoId = cityListInfoId
     )

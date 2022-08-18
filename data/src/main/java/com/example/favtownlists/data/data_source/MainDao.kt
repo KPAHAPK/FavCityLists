@@ -28,38 +28,44 @@ interface MainDao {
     suspend fun insertBanchOfCrossRefs(crossRefs: List<CustomListCrossRefEntity>)
 
 
-    @Query("SELECT * FROM cities WHERE name = :name")
-    suspend fun getCity(name: String): CityEntity
+    @Query("SELECT * FROM cities WHERE city_id = :id")
+    suspend fun getCityById(id: Int): CityEntity
 
     @Query("SELECT * FROM cities")
-    fun getBanchOfCities(): Flow<List<CityEntity>>
+    fun getAllCitiesFlow(): Flow<List<CityEntity>>
+
+    @Query("SELECT * FROM cities")
+    suspend fun getAllCities(): List<CityEntity>
+
+    @Query("SELECT * FROM city_list_info WHERE city_list_info_id = :id")
+    suspend fun getCityListInfoById(id: Int): CityListInfoEntity
 
     @Query("SELECT * FROM city_list_info WHERE name = :name")
-    suspend fun getCityListInfo(name: String): CityListInfoEntity
+    suspend fun getCityListInfoByName(name: String): CityListInfoEntity
 
     @Query("SELECT * FROM city_list_info")
-    fun getBanchOfCityListInfo(): Flow<List<CityListInfoEntity>>
+    fun getAllCityListInfo(): Flow<List<CityListInfoEntity>>
 
     @Transaction
-    @Query("SELECT * FROM city_list_info WHERE name LIKE :name")
-    suspend fun getCustomList(name: String): CustomCityList
+    @Query("SELECT * FROM city_list_info WHERE city_list_info_id = :id")
+    suspend fun getCustomListById(id: Int): CustomCityList
 
     @Transaction
     @Query("SELECT * FROM city_list_info")
-    fun getBanchOfCustomLists(): Flow<List<CustomCityList>>
+    fun getAllCustomLists(): Flow<List<CustomCityList>>
 
 
     @Delete
     suspend fun deleteCity(city: CityEntity)
 
     @Delete
-    suspend fun deleteBanchOfCities(cities: List<CityEntity>)
+    suspend fun deleteAllCities(cities: List<CityEntity>)
 
     @Delete
     suspend fun deleteCityList(cityListEntity: CityListInfoEntity)
 
     @Delete
-    suspend fun deleteBanchOfCityLists(cityListEntity: List<CityListInfoEntity>)
+    suspend fun deleteAllCityLists(cityListEntity: List<CityListInfoEntity>)
 
     @Delete
     suspend fun deleteCrossRef(crossRef: CustomListCrossRefEntity)

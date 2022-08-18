@@ -1,7 +1,17 @@
-package com.example.favtownlists.data.data_source.city
+package com.example.favtownlists.data.data_source
 
+import android.graphics.Color
+import com.example.favtownlists.data.data_source.city.CityEntity
+import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
+import com.example.favtownlists.data.data_source.crossref.CustomListCrossRefEntity
 import com.example.favtownlists.data.data_source.mappers.toCityEntity
+import com.example.favtownlists.data.data_source.mappers.toCityListInfoEntity
+import com.example.favtownlists.data.data_source.mappers.toCustomCityLis
+import com.example.favtownlists.repository.room.model.CityListInfoModel
 import com.example.favtownlists.repository.room.model.CityModel
+import com.example.favtownlists.repository.room.model.CustomCityListModel
+import com.example.favtownlists.repository.room.model.CustomListCrossRefModel
+
 
 internal class InitCityList {
     val initEuropeCityList: List<CityEntity> = listOf(
@@ -23,4 +33,25 @@ internal class InitCityList {
         CityModel(name = "Сингапур", foundingDate = "III век"),
         CityModel(name = "Сидней", foundingDate = "1788")
     ).map { it.toCityEntity() }
+}
+
+
+internal class InitCityListInfo {
+    val initCityListInfo: CityListInfoEntity = CityListInfoModel(
+        name = "Города в Европе",
+        shortName = "Европа",
+        color = Color.GREEN
+    ).toCityListInfoEntity()
+}
+
+internal class InitCrossRef{
+    private fun get(): List<CustomListCrossRefModel>{
+        val europeCityList = InitCityList().initEuropeCityList
+        val customList = mutableListOf<CustomListCrossRefModel>()
+        for (i in 1..europeCityList.size){
+            customList.add(CustomListCrossRefModel(i, 1))
+        }
+        return customList
+    }
+    val initCrossRef: List<CustomListCrossRefEntity> = get().map { it.toCustomCityLis() }
 }

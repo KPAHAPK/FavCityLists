@@ -12,6 +12,7 @@ fun CityListInfoModel.toCityListInfoEntity(): CityListInfoEntity{
 }
 fun CityListInfoEntity.toCityListModel(): CityListInfoModel{
     return CityListInfoModel(
+        id = id,
         name = name,
         shortName = shortName,
         color = color

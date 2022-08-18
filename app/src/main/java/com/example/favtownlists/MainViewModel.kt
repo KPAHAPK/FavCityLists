@@ -12,10 +12,11 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
     @Inject
     lateinit var router: Router
+
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    fun routeToCityListScreen(){
+    fun routeToCityListScreen() {
         router.navigateTo(Screens.CityListScreen())
     }
 
