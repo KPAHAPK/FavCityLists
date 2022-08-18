@@ -5,17 +5,17 @@ import androidx.room.Junction
 import androidx.room.Relation
 import com.example.favtownlists.data.data_source.city.CityEntity
 import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
-import com.example.favtownlists.data.data_source.crossref.CustomListCrossRef
+import com.example.favtownlists.data.data_source.crossref.CustomListCrossRefEntity
 
-data class CustomList(
+data class CustomCityList(
     @Embedded
-    val customCityList: CityListInfoEntity,
+    val cityListInfo: CityListInfoEntity,
     @Relation(
         parentColumn = "city_list_info_id",
         entity = CityEntity::class,
         entityColumn = "city_id",
         associateBy = Junction(
-            value = CustomListCrossRef::class,
+            value = CustomListCrossRefEntity::class,
             parentColumn = "city_list_info_id",
             entityColumn = "city_id"
         )

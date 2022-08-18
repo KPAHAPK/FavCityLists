@@ -3,7 +3,7 @@ package com.example.favtownlists.data.data_source.city
 import com.example.favtownlists.data.data_source.mappers.toCityEntity
 import com.example.favtownlists.repository.room.model.CityModel
 
-class InitCityList {
+internal class InitCityList {
     val initEuropeCityList: List<CityEntity> = listOf(
         CityModel(name = "Париж", foundingDate = "III век до н. э."),
         CityModel(name = "Москва", foundingDate = "1147"),

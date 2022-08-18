@@ -1,11 +1,8 @@
 package com.example.favtownlists.screens.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.favtownlists.repository.room.CityListInfoRepository
 import com.example.favtownlists.repository.room.CityRepository
-import com.example.favtownlists.repository.room.model.CityListInfoModel
 import com.example.favtownlists.repository.room.model.CityModel
 import com.example.favtownlists.screens.Screens
 import com.github.terrakok.cicerone.Router
@@ -32,22 +29,11 @@ class CityListViewModel @Inject constructor(
         router.navigateTo(Screens.MyListsScreen())
     }
 
-    fun setCityList() {
-        getCustomCityListJob?.cancel()
-        val cityList = mutableListOf<CityModel>()
-        repository.getCities().stateIn(viewModelScope, SharingStarted.Lazily, listOf())
-        _allCities.value = cityList
-//        getCustomCityListJob = repository.getCities()
-//            .onEach {
-//
-//            }
-//            .launchIn(viewModelScope)
-    }
+
 
     fun insert() {
         viewModelScope.launch {
             repository.insertCity(CityModel(null, "fsadf", "asdfa"))
-            repository2.insert(CityListInfoModel(null, "ffff"))
 
         }
     }

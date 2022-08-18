@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="init_europe_city_list_name">Европа</string>
+    <string name="initial_city_list_info_name">Список городов в Европе</string>
+    <string name="initial_city_list_info_short_name">Европа</string>
 </resources>

@@ -1,9 +1,13 @@
 package com.example.favtownlists.repository.room
 
+import com.example.favtownlists.repository.room.model.CityListInfoModel
 import com.example.favtownlists.repository.room.model.CityModel
 import kotlinx.coroutines.flow.Flow
 
 interface CityRepository {
-    fun getCities(): Flow<List<CityModel>>
+    fun getBanchOfCities(): Flow<List<CityModel>>
     suspend fun insertCity(city: CityModel)
+    suspend fun getCityListInfo(name: String) : CityListInfoModel
+    suspend fun insertCityListInfo(cityListInfoModel: CityListInfoModel)
+    fun getBanchOfCityListInfo(): Flow<List<CityListInfoModel>>
 }

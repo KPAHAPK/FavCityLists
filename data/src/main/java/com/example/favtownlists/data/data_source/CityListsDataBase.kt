@@ -4,13 +4,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.favtownlists.data.data_source.city.CityEntity
 import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
-import com.example.favtownlists.data.data_source.crossref.CustomListCrossRef
+import com.example.favtownlists.data.data_source.crossref.CustomListCrossRefEntity
 
 @Database(
     entities = [
         CityEntity::class,
         CityListInfoEntity::class,
-        CustomListCrossRef::class
+        CustomListCrossRefEntity::class
     ],
     version = 1,
     exportSchema = true
