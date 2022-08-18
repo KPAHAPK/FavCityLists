@@ -5,12 +5,10 @@ import androidx.room.*
 @Entity(tableName = "cities")
 data class CityEntity(
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id")
+        @ColumnInfo(name = "city_id")
         val id: Int? = null,
-        @ColumnInfo(name = "city_owner_id")
-        val customCityListId: Int? = null,
         @ColumnInfo(name = "name")
         val name: String,
-        @ColumnInfo(name = "foundingDate")
+        @ColumnInfo(name = "founding_date")
         val foundingDate: String
 )

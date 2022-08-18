@@ -12,6 +12,7 @@ android {
         compileSdk
         applicationId = Config.application_id
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -44,7 +45,6 @@ dependencies {
     kapt(Hilt.hiltCompiler2)
 
     // Room
-    kapt(Room.sqlite_jdbc)
     implementation(Room.runtime)
     kapt(Room.compiler)
     implementation(Room.room_ktx)

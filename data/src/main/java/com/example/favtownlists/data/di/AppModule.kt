@@ -1,21 +1,17 @@
 package com.example.favtownlists.data.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.favtownlists.data.data_source.AppDataBase
-import com.example.favtownlists.data.data_source.InitCustomList
-import com.example.favtownlists.data.data_source.city.InitCityList
-import com.example.favtownlists.data.data_source.mappers.toCityEntity
+import com.example.favtownlists.data.data_source.CityListsDataBase
+import com.example.favtownlists.data.data_source.MainDao
+import com.example.favtownlists.data.data_source.RoomCallBack
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -24,26 +20,43 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(app: Application): AppDataBase {
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+        daoProvider: Provider<MainDao>
+    ): CityListsDataBase {
         return Room.databaseBuilder(
-            app,
-            AppDataBase::class.java,
-            AppDataBase.DATABASE_NAME
+            context,
+            CityListsDataBase::class.java,
+            "citylistdb"
         )
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onCreate(db: SupportSQLiteDatabase) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val job = launch {
-                            provideAppDatabase(app).cityDao()
-                                .insertCities(InitCityList.initCityList)
-                        }
-                        job.join()
-                        provideAppDatabase(app).customCityListDao()
-                            .insertCustomList(InitCustomList.initCustomList)
-
-                    }
-                }
-            })
+//            .addCallback(
+//                object : RoomDatabase.Callback() {
+//                override fun onCreate(db: SupportSQLiteDatabase) {
+//                    super.onCreate(db)
+//                    CoroutineScope(SupervisorJob()).launch(Dispatchers.IO) {
+//                        daoProvider.get().apply {
+//                            insertCities(InitCityList.initEuropeCityList)
+//                            insertCityListInfo(InitCityListInfo.initCityListInfo)
+//                            val cityList: List<CityEntity> =
+//                                getCities().flatMapConcat { it.asFlow() }.toList()
+//                            val cityListInfo: Flow<CityListInfoEntity> =
+//                                getCityListInfo(InitCityListInfo.initCityListInfo.name).onEach {
+//
+//                                }
+//                            for (city in cityList) {
+//                                insertCrossRef(CustomListCrossRef(city.id!!, cityListInfo.id!!))
+//                            }
+//                            insertCities(InitCityList.intiOtherCityList)
+//                        }
+//                    }
+//                }
+//            })
+            .addCallback(RoomCallBack(daoProvider))
             .build()
+    }
+
+    @Provides
+    fun provideMainDao(database: CityListsDataBase): MainDao {
+        return database.mainDao
     }
 }

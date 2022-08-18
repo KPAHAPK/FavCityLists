@@ -1,35 +1,54 @@
 package com.example.favtownlists.screens.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.favtownlists.repository.room.CustomCityListRepository
+import com.example.favtownlists.repository.room.CityListInfoRepository
+import com.example.favtownlists.repository.room.CityRepository
+import com.example.favtownlists.repository.room.model.CityListInfoModel
+import com.example.favtownlists.repository.room.model.CityModel
 import com.example.favtownlists.screens.Screens
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 class CityListViewModel @Inject constructor(
-    private val repository: CustomCityListRepository
+    private val repository: CityRepository,
+    private val repository2: CityListInfoRepository
 ) : ViewModel() {
     @Inject
     lateinit var router: Router
 
     private var getCustomCityListJob: Job? = null
 
+    private val _allCities = MutableStateFlow(listOf<CityModel>())
+    val allCities: StateFlow<List<CityModel>> = _allCities.asStateFlow()
+
+
     fun routeToMyListsScreen() {
         router.navigateTo(Screens.MyListsScreen())
     }
 
-    fun getCityList() {
+    fun setCityList() {
         getCustomCityListJob?.cancel()
-        repository.getAllList().onEach {
-            customCityList ->
+        val cityList = mutableListOf<CityModel>()
+        repository.getCities().stateIn(viewModelScope, SharingStarted.Lazily, listOf())
+        _allCities.value = cityList
+//        getCustomCityListJob = repository.getCities()
+//            .onEach {
+//
+//            }
+//            .launchIn(viewModelScope)
+    }
+
+    fun insert() {
+        viewModelScope.launch {
+            repository.insertCity(CityModel(null, "fsadf", "asdfa"))
+            repository2.insert(CityListInfoModel(null, "ffff"))
 
         }
     }
-
 }

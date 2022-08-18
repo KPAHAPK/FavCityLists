@@ -1,15 +1,15 @@
 package com.example.favtownlists.data.data_source.mappers
 
-import com.example.favtownlists.data.data_source.citylist.CustomCityListEntity
-import com.example.favtownlists.repository.room.model.CustomCityListModel
+import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
+import com.example.favtownlists.repository.room.model.CityListInfoModel
 
-fun CustomCityListModel.toCityListEntity(): CustomCityListEntity{
-    return CustomCityListEntity(
+fun CityListInfoModel.toCityListInfoEntity(): CityListInfoEntity{
+    return CityListInfoEntity(
         name = name
     )
 }
-fun CustomCityListEntity.toCityListModel(): CustomCityListModel{
-    return CustomCityListModel(
+fun CityListInfoEntity.toCityListModel(): CityListInfoModel{
+    return CityListInfoModel(
         name = name
     )
 }

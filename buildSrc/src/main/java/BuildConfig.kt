@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val application_id = "com.example.dictionary"
+    const val application_id = "com.example.favcitylist"
     const val compile_sdk = 31
     const val min_sdk = 24
     const val target_sdk = 31
@@ -82,7 +82,6 @@ object Kotlin {
 }
 
 object Room {
-    const val sqlite_jdbc = "org.xerial:sqlite-jdbc:${Versions.sqlite_jdbc}"
     const val runtime = "androidx.room:room-runtime:${Versions.runtime}"
     const val compiler = "androidx.room:room-compiler:${Versions.roomCompiler}"
     const val room_ktx = "androidx.room:room-ktx:${Versions.roomKtx}"
