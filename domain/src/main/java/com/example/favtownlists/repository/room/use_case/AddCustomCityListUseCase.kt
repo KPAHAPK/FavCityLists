@@ -2,6 +2,7 @@ package com.example.favtownlists.repository.room.use_case
 
 import com.example.favtownlists.repository.room.CityRepository
 import com.example.favtownlists.repository.room.model.CustomCityListModel
+import com.example.favtownlists.repository.room.model.CustomListCrossRefModel
 
 class AddCustomCityListUseCase(
     private val repository: CityRepository
@@ -17,6 +18,10 @@ class AddCustomCityListUseCase(
             }
         }
         repository.insertCityListInfo(customCityListModel.cityListInfo)
+        val cityListId = customCityListModel.cityListInfo.id
+        for (city in customCityListModel.cities){
+            repository.insertCrossRef(CustomListCrossRefModel(city.id!!, cityListId!!))
+        }
     }
 }
 class InvalidCustomCityListException(message: String): Exception(message)

@@ -1,4 +1,6 @@
 package com.example.favtownlists.repository.room.model
 
-class CustomListCrossRefModel {
-}
+data class CustomListCrossRefModel (
+    val cityId: Int,
+    val cityListInfoId: Int,
+)

@@ -14,7 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CityListViewModel @Inject constructor(
     private val repository: CityRepository,
-    private val repository2: CityListInfoRepository
 ) : ViewModel() {
     @Inject
     lateinit var router: Router

@@ -8,6 +8,7 @@ import com.example.favtownlists.data.data_source.mappers.toCityModel
 import com.example.favtownlists.repository.room.CityRepository
 import com.example.favtownlists.repository.room.model.CityListInfoModel
 import com.example.favtownlists.repository.room.model.CityModel
+import com.example.favtownlists.repository.room.model.CustomListCrossRefModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -42,6 +43,10 @@ class CityListRepositoryImpl @Inject constructor(
     }
 
     override fun getBanchOfCityListInfo(): Flow<List<CityListInfoModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertCrossRef(crossRef: CustomListCrossRefModel) {
         TODO("Not yet implemented")
     }
 }
