@@ -15,7 +15,7 @@ interface MainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCities(city: List<CityEntity>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(entity = CityListInfoEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCityListInfo(CityListInfo: CityListInfoEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -1,6 +1,7 @@
 package com.example.favtownlists.data.repository
 
 import com.example.favtownlists.data.data_source.CityListsDataBase
+import com.example.favtownlists.data.data_source.mappers.toCityListInfoEntity
 import com.example.favtownlists.repository.room.CityListInfoRepository
 import com.example.favtownlists.repository.room.model.CityListInfoModel
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +14,8 @@ class CityListInfoRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun saveToDB(cityListModel: CityListInfoModel) {
-        TODO("Not yet implemented")
+    override suspend fun insert(cityListInfoModel: CityListInfoModel) {
+        db.mainDao.insertCityListInfo(cityListInfoModel.toCityListInfoEntity())
     }
 
     override fun getAllList(): Flow<List<CityListInfoModel>> {

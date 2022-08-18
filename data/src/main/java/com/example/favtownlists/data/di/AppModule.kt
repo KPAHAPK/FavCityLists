@@ -20,9 +20,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(app: Application, daoProvider: Provider<MainDao>): CityListsDataBase {
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+        daoProvider: Provider<MainDao>
+    ): CityListsDataBase {
         return Room.databaseBuilder(
-            app,
+            context,
             CityListsDataBase::class.java,
             "citylistdb"
         )
@@ -53,7 +56,7 @@ object AppModule {
     }
 
     @Provides
-    fun provideMainDao(database: CityListsDataBase): MainDao{
+    fun provideMainDao(database: CityListsDataBase): MainDao {
         return database.mainDao
     }
 }

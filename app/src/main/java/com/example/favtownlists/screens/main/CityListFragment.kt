@@ -35,7 +35,6 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRv()
-        viewModel.setCityList()
     }
 
     private fun setUpRv() {
