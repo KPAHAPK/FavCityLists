@@ -5,11 +5,16 @@ import com.example.favtownlists.repository.room.model.CityListInfoModel
 
 fun CityListInfoModel.toCityListInfoEntity(): CityListInfoEntity{
     return CityListInfoEntity(
-        name = name
+        name = name,
+        shortName = shortName,
+        color = color
     )
 }
 fun CityListInfoEntity.toCityListModel(): CityListInfoModel{
     return CityListInfoModel(
-        name = name
+        id = id,
+        name = name,
+        shortName = shortName,
+        color = color
     )
 }

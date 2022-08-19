@@ -8,19 +8,19 @@ import com.example.favtownlists.screens.newlist.NewCustomCityListFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
-    class CityListScreen() : FragmentScreen {
+    class CityListScreen : FragmentScreen {
         override fun createFragment(factory: FragmentFactory): Fragment {
             return CityListFragment.newInstance()
         }
     }
 
-    class MyListsScreen() : FragmentScreen {
+    class MyListsScreen : FragmentScreen {
         override fun createFragment(factory: FragmentFactory): Fragment {
             return CustomCityListsFragment.newInstance()
         }
     }
 
-    class NewListScreen() : FragmentScreen {
+    class NewListScreen : FragmentScreen {
         override fun createFragment(factory: FragmentFactory): Fragment {
             return NewCustomCityListFragment.newInstance()
         }

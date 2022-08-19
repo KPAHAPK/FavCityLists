@@ -3,7 +3,7 @@ package com.example.favtownlists.data.data_source
 import androidx.room.*
 import com.example.favtownlists.data.data_source.city.CityEntity
 import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
-import com.example.favtownlists.data.data_source.crossref.CustomListCrossRef
+import com.example.favtownlists.data.data_source.crossref.CustomListCrossRefEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -13,54 +13,62 @@ interface MainDao {
     suspend fun insertCity(city: CityEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCities(city: List<CityEntity>)
+    suspend fun insertBanchOfCities(city: List<CityEntity>)
 
     @Insert(entity = CityListInfoEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCityListInfo(CityListInfo: CityListInfoEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBanchOfCityListInfos(CityListInfos: List<CityListInfoEntity>)
+    suspend fun insertBanchOfCityListInfo(CityListInfos: List<CityListInfoEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCrossRef(crossRef: CustomListCrossRef)
+    suspend fun insertCrossRef(crossRef: CustomListCrossRefEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCrossRefs(crossRefs: List<CustomListCrossRef>)
+    suspend fun insertBanchOfCrossRefs(crossRefs: List<CustomListCrossRefEntity>)
 
-    @Query("SELECT * FROM cities WHERE name = :name")
-    fun getCity(name: String): Flow<CityEntity>
+
+    @Query("SELECT * FROM cities WHERE city_id = :id")
+    suspend fun getCityById(id: Int): CityEntity
 
     @Query("SELECT * FROM cities")
-    fun getCities(): Flow<List<CityEntity>>
+    fun getAllCitiesFlow(): Flow<List<CityEntity>>
+
+    @Query("SELECT * FROM cities")
+    suspend fun getAllCities(): List<CityEntity>
+
+    @Query("SELECT * FROM city_list_info WHERE city_list_info_id = :id")
+    suspend fun getCityListInfoById(id: Int): CityListInfoEntity
 
     @Query("SELECT * FROM city_list_info WHERE name = :name")
-    fun getCityListInfo(name: String): Flow<CityListInfoEntity>
+    suspend fun getCityListInfoByName(name: String): CityListInfoEntity
 
     @Query("SELECT * FROM city_list_info")
-    fun getAllCityListInfos(): Flow<List<CityListInfoEntity>>
+    fun getAllCityListInfo(): Flow<List<CityListInfoEntity>>
 
     @Transaction
-    @Query("SELECT * FROM city_list_info WHERE name LIKE :name")
-    fun getCustomList(name: String): Flow<CustomList>
+    @Query("SELECT * FROM city_list_info WHERE city_list_info_id = :id")
+    suspend fun getCustomListById(id: Int): CustomCityList
 
     @Transaction
     @Query("SELECT * FROM city_list_info")
-    fun getCustomLists(): Flow<List<CustomList>>
+    fun getAllCustomLists(): Flow<List<CustomCityList>>
+
 
     @Delete
     suspend fun deleteCity(city: CityEntity)
 
     @Delete
-    suspend fun deleteCities(cities: List<CityEntity>)
-    
-    @Delete
-    suspend fun deleteCityList(cityListEntity: CityListInfoEntity)
-    
-    @Delete
-    suspend fun deleteBanchOfCityLists(cityListEntity: List<CityListInfoEntity>)
+    suspend fun deleteAllCities(cities: List<CityEntity>)
 
     @Delete
-    suspend fun deleteCrossRef(crossRef: CustomListCrossRef)
+    suspend fun deleteCityList(cityListEntity: CityListInfoEntity)
+
+    @Delete
+    suspend fun deleteAllCityLists(cityListEntity: List<CityListInfoEntity>)
+
+    @Delete
+    suspend fun deleteCrossRef(crossRef: CustomListCrossRefEntity)
 
     @Transaction
     @Query("DELETE FROM custom_list_cross_ref WHERE city_list_info_id = :customListId")

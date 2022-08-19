@@ -1,10 +1,8 @@
 package com.example.favtownlists
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.favtownlists.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,10 +17,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             viewModel.routeToCityListScreen()
         }
     }
+
 
     override fun onResumeFragments() {
         super.onResumeFragments()

@@ -10,6 +10,10 @@ data class CityListInfoEntity(
     @ColumnInfo(name = "city_list_info_id")
     val id: Int? = null,
     @ColumnInfo(name = "name")
-    val name: String
+    val name: String,
+    @ColumnInfo(name = "short_name")
+    val shortName: String,
+    @ColumnInfo(name = "color")
+    val color: Int
 )
 

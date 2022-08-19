@@ -10,7 +10,8 @@ class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
 
     var cityList = listOf<CityModel>()
 
-    inner class CityVH(private val binding: CityItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CityVH(private val binding: CityItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(city: CityModel) {
             binding.apply {
                 tvName.text = city.name

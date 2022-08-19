@@ -2,10 +2,13 @@ package com.example.favtownlists.data.di
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import androidx.room.Room
 import com.example.favtownlists.data.data_source.CityListsDataBase
 import com.example.favtownlists.data.data_source.MainDao
 import com.example.favtownlists.data.data_source.RoomCallBack
+import com.example.favtownlists.repository.room.CityRepository
+import com.example.favtownlists.repository.room.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,35 +31,28 @@ object AppModule {
             context,
             CityListsDataBase::class.java,
             "citylistdb"
-        )
-//            .addCallback(
-//                object : RoomDatabase.Callback() {
-//                override fun onCreate(db: SupportSQLiteDatabase) {
-//                    super.onCreate(db)
-//                    CoroutineScope(SupervisorJob()).launch(Dispatchers.IO) {
-//                        daoProvider.get().apply {
-//                            insertCities(InitCityList.initEuropeCityList)
-//                            insertCityListInfo(InitCityListInfo.initCityListInfo)
-//                            val cityList: List<CityEntity> =
-//                                getCities().flatMapConcat { it.asFlow() }.toList()
-//                            val cityListInfo: Flow<CityListInfoEntity> =
-//                                getCityListInfo(InitCityListInfo.initCityListInfo.name).onEach {
-//
-//                                }
-//                            for (city in cityList) {
-//                                insertCrossRef(CustomListCrossRef(city.id!!, cityListInfo.id!!))
-//                            }
-//                            insertCities(InitCityList.intiOtherCityList)
-//                        }
-//                    }
-//                }
-//            })
-            .addCallback(RoomCallBack(daoProvider))
+        ).addCallback(RoomCallBack(daoProvider))
             .build()
     }
 
     @Provides
     fun provideMainDao(database: CityListsDataBase): MainDao {
         return database.mainDao
+    }
+
+    @Provides
+    fun provideResources(app: Application): Resources = app.resources
+
+    @Provides
+    @Singleton
+    fun provideUseCases(
+        repository: CityRepository
+    ): UseCases {
+        return UseCases(
+            GetCustomCityListUseCase(repository),
+            GetCustomCityListsUseCase(repository),
+            GetCityListUseCase(repository),
+            AddCustomCityListUseCase(repository)
+        )
     }
 }
