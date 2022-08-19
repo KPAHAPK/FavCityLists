@@ -50,8 +50,7 @@ class CityListRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCustomListById(id: Int): CustomCityListModel {
-        val customCityListModel = dao.getCustomListById(id).toCustomCityListModel()
-        return customCityListModel
+        return dao.getCustomListById(id).toCustomCityListModel()
     }
 
     override suspend fun insertCrossRef(crossRef: CustomListCrossRefModel) {

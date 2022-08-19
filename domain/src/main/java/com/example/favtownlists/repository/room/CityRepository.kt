@@ -12,7 +12,7 @@ interface CityRepository {
     suspend fun getCityListInfo(name: String) : CityListInfoModel
     suspend fun insertCityListInfo(cityListInfoModel: CityListInfoModel)
     fun getAllCityListInfo(): Flow<List<CityListInfoModel>>
-    suspend fun getCustomListById(id: Int):CustomCityListModel
+    suspend fun getCustomListById(id: Int): CustomCityListModel
     suspend fun insertCrossRef(crossRef: CustomListCrossRefModel)
     fun getAllCustomLists(): Flow<List<CustomCityListModel>>
 }
