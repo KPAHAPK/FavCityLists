@@ -32,6 +32,13 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRv()
+        initButton()
+    }
+
+    private fun initButton() {
+        binding.btnShowCities.setOnClickListener {
+            viewModel.getCustomCityListById(1)
+        }
     }
 
     private fun setUpRv() {
@@ -52,7 +59,6 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             )
             itemTouchHelper.attachToRecyclerView(this)
             adapter = cityListAdapter
-//            viewModel.getCustomCityList(id)
         }
 
     }

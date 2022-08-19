@@ -8,10 +8,7 @@ import kotlinx.coroutines.flow.flow
 class GetCustomCityListUseCase(
     private val repository: CityRepository
 ){
-  operator fun invoke(id: Int): Flow<CustomCityListModel> {
-      return flow {
-          val customCityList = repository.getCustomListById(id)
-          emit(customCityList)
-      }
+    suspend operator fun invoke(id: Int): CustomCityListModel {
+      return repository.getCustomListById(id)
   }
 }
