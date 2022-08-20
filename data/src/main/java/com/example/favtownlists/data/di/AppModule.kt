@@ -27,12 +27,15 @@ object AppModule {
         @ApplicationContext context: Context,
         daoProvider: Provider<MainDao>
     ): CityListsDataBase {
-        return Room.databaseBuilder(
+        val db = Room.databaseBuilder(
             context,
             CityListsDataBase::class.java,
             "citylistdb"
         ).addCallback(RoomCallBack(daoProvider))
             .build()
+        db.openHelper.writableDatabase
+        return db
+
     }
 
     @Provides

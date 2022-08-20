@@ -57,6 +57,7 @@ dependencies {
     implementation(Kotlin.activityKTX)
     implementation(Kotlin.fragmentKTX)
     implementation(Kotlin.viewModelKTX)
+    implementation(Kotlin.liveDataKTX)
 
 
     //ViewBinding

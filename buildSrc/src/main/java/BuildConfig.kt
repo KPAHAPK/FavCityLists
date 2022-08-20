@@ -35,6 +35,7 @@ object Versions {
     const val activityKTX = "1.5.1"
     const val fragmentKTX = "1.5.2"
     const val viewModelKTX = "2.5.1"
+    const val liveDataKTX = "2.5.1"
 
     //Room
     const val sqlite_jdbc = "3.34.0"
@@ -79,6 +80,7 @@ object Kotlin {
     const val activityKTX = "androidx.activity:activity-ktx:${Versions.activityKTX}"
     const val fragmentKTX = "androidx.fragment:fragment-ktx:${Versions.fragmentKTX}"
     const val viewModelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKTX}"
+    const val liveDataKTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveDataKTX}"
 }
 
 object Room {
