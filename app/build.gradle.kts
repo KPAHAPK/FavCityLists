@@ -35,6 +35,8 @@ dependencies {
     implementation(Kotlin.core)
     implementation(Design.appcompat)
     implementation(Design.material)
+    implementation(Design.constraintLayout)
+    implementation(Design.viewPager2)
     implementation(TestImpl.junit)
     androidTestImplementation(TestImpl.runner)
     androidTestImplementation(TestImpl.espresso)

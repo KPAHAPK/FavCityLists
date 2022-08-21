@@ -11,8 +11,8 @@ import com.example.favtownlists.repository.room.model.CityModel
 class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
 
     var cityList : List<CityModel>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
+        get() = diff.currentList
+        set(value) = diff.submitList(value)
 
     inner class CityVH(private val binding: CityItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -24,7 +24,7 @@ class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
         }
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<CityModel>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<CityModel>() {
         override fun areItemsTheSame(
             oldItem: CityModel,
             newItem: CityModel
@@ -41,7 +41,7 @@ class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
 
     }
 
-    val differ = AsyncListDiffer(this, differCallback)
+    val diff = AsyncListDiffer(this, diffCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityVH {
         val binding =
@@ -50,7 +50,7 @@ class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
     }
 
     override fun onBindViewHolder(holder: CityVH, position: Int) {
-        val cityModel = differ.currentList[position]
+        val cityModel = diff.currentList[position]
         holder.bind(cityModel)
     }
 

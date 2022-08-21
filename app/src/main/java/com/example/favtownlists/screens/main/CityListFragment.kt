@@ -1,5 +1,6 @@
 package com.example.favtownlists.screens.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -12,11 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.favtownlists.R
 import com.example.favtownlists.databinding.FragmentCityListBinding
+import com.example.favtownlists.repository.room.model.CityListInfoModel
 import com.example.favtownlists.screens.main.adapter.CityListAdapter
+import com.example.favtownlists.screens.main.adapter.CityListsInfoAdapter
 import com.example.favtownlists.screens.main.adapter.ItemTouchCallBack
+import com.example.favtownlists.screens.main.adapter.ZoomPageTransformer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
+
 
 @AndroidEntryPoint
 class CityListFragment : Fragment(R.layout.fragment_city_list) {
@@ -24,11 +29,12 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     private val binding: FragmentCityListBinding by viewBinding()
     private val viewModel: CityListViewModel by viewModels()
 
-    private val bottomSheet by lazy { binding.includedBottomSheet.bottomSheetContainer }
+    private val bottomSheet by lazy { binding.includedBottomSheet.container }
     private val bottomSheetBehavior by lazy {
         BottomSheetBehavior.from(bottomSheet)
     }
     private lateinit var cityListAdapter: CityListAdapter
+    private lateinit var cityListsInfoAdapter: CityListsInfoAdapter
     private val itemTouchHelper by lazy {
         val itemTouchHelper = ItemTouchCallBack()
         ItemTouchHelper(itemTouchHelper)
@@ -39,7 +45,8 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
         initBottomSheet()
         setObserver()
         initButton()
-        setUpRv()
+        setRV()
+        setVP()
     }
 
     private fun initBottomSheet() {
@@ -53,46 +60,48 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             val tab3Tittle = tab3?.customView?.findViewById<TextView>(R.id.tab_name)
             val tab3Image = tab3?.customView?.findViewById<ImageView>(R.id.tab_icon)
             tab3Tittle?.text = it.cityListInfo.shortName
-            tab3Image?.setColorFilter(it.cityListInfo.color,)
+            tab3Image?.setColorFilter(it.cityListInfo.color)
         }
     }
 
     private fun initButton() {
         binding.tabLayout.apply {
+            val citiesTab = getTabAt(0)
             val defTab = getTabAt(1)
             val listTab = getTabAt(2)
             selectTab(defTab)
             defTab?.view?.isClickable = false
             listTab?.view?.isClickable = false
-            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    when (tab?.position) {
-                        0 -> {
-                            viewModel.getCustomCityListById(1)
-                            getTabAt(2)?.view?.isClickable = true
+            citiesTab?.view?.setOnClickListener {
+                viewModel.getCustomCityListById(1)
+            }
+            listTab?.customView?.setOnClickListener {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (newState == BottomSheetBehavior.STATE_COLLAPSED){
+                            binding.background.visibility = View.GONE
                         }
-                        2 -> {
-                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-                        }
-
                     }
-                }
 
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                }
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                       binding.background.apply {
+                           visibility = View.VISIBLE
+                           alpha = slideOffset
+                       }
+                    }
 
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-
-                }
-            })
+                })
+                listTab.select()
+            }
         }
     }
 
-    private fun setUpRv() {
+    private fun setRV() {
         cityListAdapter = CityListAdapter()
         binding.rvCity.apply {
             layoutManager = LinearLayoutManager(
-                this@CityListFragment.context,
+                this@CityListFragment.requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false
             )
@@ -100,12 +109,33 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             adapter = cityListAdapter
             addItemDecoration(
                 DividerItemDecoration(
-                    this@CityListFragment.context,
+                    this@CityListFragment.requireContext(),
                     DividerItemDecoration.VERTICAL
                 )
             )
         }
 
+    }
+
+    private fun setVP() {
+        cityListsInfoAdapter = CityListsInfoAdapter()
+        val list = listOf(
+            CityListInfoModel(1, "aaaaa", "a", Color.GREEN),
+            CityListInfoModel(2, "bbbbb", "b", Color.BLUE),
+            CityListInfoModel(3, "ccccc", "c", Color.CYAN),
+            CityListInfoModel(4, "ddddd", "d", Color.RED),
+            CityListInfoModel(5, "eeeee", "e", Color.YELLOW),
+            CityListInfoModel(6, "fffff", "f", Color.MAGENTA),
+        )
+        binding.includedBottomSheet.vpLists.apply {
+            offscreenPageLimit = 1
+            setClipToPadding(false);
+            setPadding(300, 0, 300, 0);
+            setPageTransformer(ZoomPageTransformer())
+//            }
+            adapter = cityListsInfoAdapter
+            cityListsInfoAdapter.customCityListsInfo = list
+        }
     }
 
     companion object {
