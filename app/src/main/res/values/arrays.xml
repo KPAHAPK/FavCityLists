@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors_name">
+        <item>Красный</item>
+        <item>Желтый</item>
+        <item>Синий</item>
+        <item>Зеленый</item>
+    </array>
+</resources>

@@ -5,11 +5,14 @@
       <map>
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/drawable/bottom_sheet_layout.xml" value="0.2855" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/drawable/circle.xml" value="0.127" />
+        <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/drawable/edit_text_frame.xml" value="0.2855" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.2295" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.127" />
+        <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/drawable/spinner_border.xml" value="0.2855" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.25" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/city_item.xml" value="0.3625" />
+        <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/city_item_checkboxed.xml" value="0.3614583333333333" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/custom_tab_bar.xml" value="0.3614583333333333" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/edit_text_frame.xml" value="0.3614583333333333" />
         <entry key="..\:/IT/GB/4/3/FavTownLists/app/src/main/res/layout/fragment_city_list.xml" value="0.3625" />
