@@ -6,7 +6,7 @@ import com.example.favtownlists.data.data_source.citylist.CityListInfoEntity
 import com.example.favtownlists.data.data_source.crossref.CustomListCrossRefEntity
 import com.example.favtownlists.data.data_source.mappers.toCityEntity
 import com.example.favtownlists.data.data_source.mappers.toCityListInfoEntity
-import com.example.favtownlists.data.data_source.mappers.toCustomCityLis
+import com.example.favtownlists.data.data_source.mappers.toCustomCityList
 import com.example.favtownlists.repository.room.model.CityListInfoModel
 import com.example.favtownlists.repository.room.model.CityModel
 import com.example.favtownlists.repository.room.model.CustomListCrossRefModel
@@ -53,5 +53,5 @@ internal class InitCrossRef {
         return customList
     }
 
-    val initCrossRef: List<CustomListCrossRefEntity> = get().map { it.toCustomCityLis() }
+    val initCrossRef: List<CustomListCrossRefEntity> = get().map { it.toCustomCityList() }
 }

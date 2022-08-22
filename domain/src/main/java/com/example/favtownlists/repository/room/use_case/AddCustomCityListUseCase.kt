@@ -10,17 +10,19 @@ class AddCustomCityListUseCase(
     @Throws(InvalidCustomCityListException::class)
     suspend operator fun invoke(customCityListModel: CustomCityListModel){
         customCityListModel.also {
-            if (it.cityListInfo.name.isBlank()){
-                throw InvalidCustomCityListException("The name of the list can't be empty")
-            }
             if (it.cityListInfo.shortName.isBlank()){
-                throw InvalidCustomCityListException("The short name of the list can't be empty")
+                throw InvalidCustomCityListException("Короткое название не может быть пустым")
+            }
+            if (it.cityListInfo.name.isBlank()){
+                throw InvalidCustomCityListException("Название не может быть пустым")
+            }
+            if (it.cities.isEmpty()){
+                throw InvalidCustomCityListException("Выберите хотя бы 1 город")
             }
         }
-        repository.insertCityListInfo(customCityListModel.cityListInfo)
-        val cityListId = customCityListModel.cityListInfo.id
+        val cityListInfoId = repository.insertCityListInfo(customCityListModel.cityListInfo)
         for (city in customCityListModel.cities){
-            repository.insertCrossRef(CustomListCrossRefModel(city.id!!, cityListId!!))
+            repository.insertCrossRef(CustomListCrossRefModel(city.id!!, cityListInfoId.toInt()))
         }
     }
 }

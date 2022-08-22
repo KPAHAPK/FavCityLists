@@ -16,7 +16,7 @@ interface MainDao {
     suspend fun insertBanchOfCities(city: List<CityEntity>)
 
     @Insert(entity = CityListInfoEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCityListInfo(CityListInfo: CityListInfoEntity)
+    suspend fun insertCityListInfo(CityListInfo: CityListInfoEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBanchOfCityListInfo(CityListInfos: List<CityListInfoEntity>)
@@ -24,15 +24,12 @@ interface MainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCrossRef(crossRef: CustomListCrossRefEntity)
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBanchOfCrossRefs(crossRefs: List<CustomListCrossRefEntity>)
 
-
     @Query("SELECT * FROM cities WHERE city_id = :id")
     suspend fun getCityById(id: Int): CityEntity
-
-    @Query("SELECT * FROM cities")
-    fun getAllCitiesFlow(): Flow<List<CityEntity>>
 
     @Query("SELECT * FROM cities")
     suspend fun getAllCities(): List<CityEntity>
@@ -44,7 +41,7 @@ interface MainDao {
     suspend fun getCityListInfoByName(name: String): CityListInfoEntity
 
     @Query("SELECT * FROM city_list_info")
-    fun getAllCityListInfo(): Flow<List<CityListInfoEntity>>
+    suspend fun getAllCityListInfo(): List<CityListInfoEntity>
 
     @Transaction
     @Query("SELECT * FROM city_list_info WHERE city_list_info_id = :id")
@@ -52,7 +49,7 @@ interface MainDao {
 
     @Transaction
     @Query("SELECT * FROM city_list_info")
-    fun getAllCustomLists(): Flow<List<CustomCityList>>
+    suspend fun getAllCustomLists(): List<CustomCityList>
 
 
     @Delete

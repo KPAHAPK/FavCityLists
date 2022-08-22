@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.favtownlists.databinding.CityItemBinding
 import com.example.favtownlists.repository.room.model.CityModel
+import com.example.favtownlists.screens.main.CityDiffUtil
 
 class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
 
-    var cityList : List<CityModel>
+    var cityList: List<CityModel>
         get() = diff.currentList
         set(value) = diff.submitList(value)
+
+    private val diffCallback = CityDiffUtil()
+    val diff = AsyncListDiffer(this, diffCallback)
 
     inner class CityVH(private val binding: CityItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -24,37 +28,20 @@ class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
         }
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<CityModel>() {
-        override fun areItemsTheSame(
-            oldItem: CityModel,
-            newItem: CityModel
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(
-            oldItem: CityModel,
-            newItem: CityModel
-        ): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-
-    val diff = AsyncListDiffer(this, diffCallback)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityVH {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CityVH {
         val binding =
             CityItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CityVH(binding)
     }
-
-    override fun onBindViewHolder(holder: CityVH, position: Int) {
-        val cityModel = diff.currentList[position]
-        holder.bind(cityModel)
-    }
-
     override fun getItemCount(): Int {
         return cityList.size
+    }
+
+    override fun onBindViewHolder(holder: CityVH, position: Int) {
+        val city = diff.currentList[position]
+        holder.bind(city)
     }
 }

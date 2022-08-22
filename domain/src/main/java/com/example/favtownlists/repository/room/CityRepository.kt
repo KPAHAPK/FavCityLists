@@ -7,12 +7,12 @@ import com.example.favtownlists.repository.room.model.CustomListCrossRefModel
 import kotlinx.coroutines.flow.Flow
 
 interface CityRepository {
-    fun getAllCities(): Flow<List<CityModel>>
+    suspend fun getAllCities():List<CityModel>
     suspend fun insertCity(city: CityModel)
     suspend fun getCityListInfo(name: String) : CityListInfoModel
-    suspend fun insertCityListInfo(cityListInfoModel: CityListInfoModel)
-    fun getAllCityListInfo(): Flow<List<CityListInfoModel>>
+    suspend fun insertCityListInfo(cityListInfoModel: CityListInfoModel): Long
+    suspend fun getAllCityListInfo(): Flow<List<CityListInfoModel>>
     suspend fun getCustomListById(id: Int): CustomCityListModel
     suspend fun insertCrossRef(crossRef: CustomListCrossRefModel)
-    fun getAllCustomLists(): Flow<List<CustomCityListModel>>
+    suspend fun getAllCustomLists(): Flow<List<CustomCityListModel>>
 }

@@ -9,6 +9,7 @@ import com.example.favtownlists.repository.room.model.CustomCityListModel
 import com.example.favtownlists.repository.room.use_case.UseCases
 import com.example.favtownlists.screens.Screens
 import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -17,8 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CityListViewModel @Inject constructor(
     private val useCase: UseCases,
-    private val router: Router,
-    val repository: CityListRepositoryImpl
 ) : ViewModel() {
 
     private var getCustomCityListJob: Job? = null
@@ -27,10 +26,6 @@ class CityListViewModel @Inject constructor(
         MutableLiveData<CustomCityListModel>()
     val customCityListLD: LiveData<CustomCityListModel>
         get() = _customCityListLD
-
-    fun routeToMyListsScreen() {
-        router.navigateTo(Screens.MyListsScreen())
-    }
 
     fun getCustomCityListById(id: Int) {
         getCustomCityListJob?.cancel()

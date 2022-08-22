@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class GetCityListUseCase(
     private val repository: CityRepository
 ){
-    suspend operator fun invoke(): Flow<List<CityModel>> {
+    suspend operator fun invoke(): List<CityModel> {
         return repository.getAllCities()
     }
 }

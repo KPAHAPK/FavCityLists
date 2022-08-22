@@ -15,5 +15,6 @@ data class CityListInfoEntity(
     val shortName: String,
     @ColumnInfo(name = "color")
     val color: Int
-)
+) {
+}
 
