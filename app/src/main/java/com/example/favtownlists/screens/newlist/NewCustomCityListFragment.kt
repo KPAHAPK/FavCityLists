@@ -17,9 +17,7 @@ import com.example.favtownlists.utils.listOfColors
 import com.github.terrakok.cicerone.Router
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +35,7 @@ class NewCustomCityListFragment : Fragment(R.layout.fragment_new_list) {
         super.onViewCreated(view, savedInstanceState)
         initSpinner()
         initButtons()
-        setLiveDataObserver()
+        setObservers()
         setRecyclerView()
     }
 
@@ -75,7 +73,7 @@ class NewCustomCityListFragment : Fragment(R.layout.fragment_new_list) {
         }
     }
 
-    private fun setLiveDataObserver() {
+    private fun setObservers() {
         lifecycleScope.launchWhenStarted {
             viewModel.cityListSF.collectLatest { list ->
                 citiListAdapter.cityList = list

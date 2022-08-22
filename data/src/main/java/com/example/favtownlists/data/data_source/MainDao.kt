@@ -45,11 +45,11 @@ interface MainDao {
 
     @Transaction
     @Query("SELECT * FROM city_list_info WHERE city_list_info_id = :id")
-    suspend fun getCustomListById(id: Int): CustomCityList
+    fun getCustomListById(id: Int): Flow<CustomCityList>
 
     @Transaction
     @Query("SELECT * FROM city_list_info")
-    suspend fun getAllCustomLists(): List<CustomCityList>
+    fun getAllCustomLists(): Flow<List<CustomCityList>>
 
 
     @Delete
