@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.favtownlists.R
 import com.example.favtownlists.databinding.ListItemBinding
 import com.example.favtownlists.repository.room.model.CityListInfoModel
-import com.example.favtownlists.repository.room.model.CustomCityListModel
 
-class CustomCityListsAdapter(private val onItemClicked: (View) -> Unit, private val onHeaderClicked: (View) -> Unit) :
+class CustomCityListsAdapter(
+    private val onItemClicked: (v:View, viewType:Int) -> Unit,
+//    private val onHeaderClicked: (View) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var customCityLists: List<CustomCityListModel>
+    var customCityLists: List<CityListInfoModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -21,23 +23,25 @@ class CustomCityListsAdapter(private val onItemClicked: (View) -> Unit, private 
     private val differ = AsyncListDiffer(this, diffCallback)
 
     inner class ListVH(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(cityListInfo: CustomCityListModel) {
+        fun bind(cityListInfo: CityListInfoModel) {
             binding.apply {
-                listIcon.setColorFilter(cityListInfo.cityListInfo.color)
-            }
-            binding.root.setOnClickListener { v ->
-                onItemClicked(v)
+                listIcon.setColorFilter(cityListInfo.color)
+                root.setOnClickListener { v ->
+                    onItemClicked(v, TYPE_ITEM)
+                }
             }
         }
     }
 
     inner class HeaderVH(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.listIcon.setImageDrawable(
-                itemView.context.resources.getDrawable(R.drawable.ic_baseline_add_circle_outline_24)
-            )
-            binding.root.setOnClickListener { v ->
-                onHeaderClicked(v)
+            binding.apply {
+                listIcon.setImageDrawable(
+                    itemView.context.resources.getDrawable(R.drawable.ic_baseline_add_circle_outline_24)
+                )
+                root.setOnClickListener { v ->
+                    onItemClicked(v, TYPE_HEADER)
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
     lateinit var navigatorHolder: NavigatorHolder
 
     fun routeToCityListScreen() {
-        router.navigateTo(Screens.CityListScreen())
+        router.newRootChain(Screens.CityListScreen())
     }
 
 }

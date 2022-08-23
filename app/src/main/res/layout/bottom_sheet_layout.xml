@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    app:behavior_peekHeight="0dp"
     android:padding="16dp"
+    app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -28,12 +28,12 @@
         android:layout_marginTop="5dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:text="Списки городов"
         android:textColor="?attr/colorOnSurface"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider"
-        android:text="Списки городов" />
+        app:layout_constraintTop_toBottomOf="@+id/slider" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_lists"
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -51,10 +51,11 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
-        tools:text="Название списка"
-        app:layout_constraintStart_toStartOf="@id/rv_lists"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintEnd_toEndOf="@id/rv_lists"
-        app:layout_constraintTop_toBottomOf="@id/rv_lists"/>
+        app:layout_constraintStart_toStartOf="@id/rv_lists"
+        app:layout_constraintTop_toBottomOf="@id/rv_lists"
+        tools:text="Название списка" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

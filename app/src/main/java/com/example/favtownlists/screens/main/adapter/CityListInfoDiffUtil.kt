@@ -2,19 +2,18 @@ package com.example.favtownlists.screens.main.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.favtownlists.repository.room.model.CityListInfoModel
-import com.example.favtownlists.repository.room.model.CustomCityListModel
 
-class CityListInfoDiffUtil : DiffUtil.ItemCallback<CustomCityListModel>() {
+class CityListInfoDiffUtil : DiffUtil.ItemCallback<CityListInfoModel>() {
     override fun areItemsTheSame(
-        oldItem: CustomCityListModel,
-        newItem: CustomCityListModel
+        oldItem: CityListInfoModel,
+        newItem: CityListInfoModel
     ): Boolean {
-        return oldItem.cityListInfo.id == newItem.cityListInfo.id
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: CustomCityListModel,
-        newItem: CustomCityListModel
+        oldItem: CityListInfoModel,
+        newItem: CityListInfoModel
     ): Boolean {
         return oldItem == newItem
     }

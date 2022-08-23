@@ -85,7 +85,7 @@ class CityListCheckboxedAdapter(
     }
 
     companion object {
-        private const val MAX_CHECKBOX_SELECTION = 2
+        private const val MAX_CHECKBOX_SELECTION = 4
     }
 
 }
