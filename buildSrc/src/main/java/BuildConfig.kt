@@ -26,6 +26,8 @@ object Versions {
     //Design
     const val appcompat = "1.4.0"
     const val material = "1.4.0"
+    const val constraintLayout = "2.1.4"
+    const val viewPager2 = "1.0.0"
 
     //Kotlin
     const val core = "1.6.0"
@@ -35,6 +37,7 @@ object Versions {
     const val activityKTX = "1.5.1"
     const val fragmentKTX = "1.5.2"
     const val viewModelKTX = "2.5.1"
+    const val liveDataKTX = "2.5.1"
 
     //Room
     const val sqlite_jdbc = "3.34.0"
@@ -62,11 +65,16 @@ object Versions {
     //Gson
     const val gson = "2.9.1"
 
+    //CarouselPicker
+    const val carouselPicker = "v1.2"
+
 }
 
 object Design {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val material = "com.google.android.material:material:${Versions.material}"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.viewPager2}"
 }
 
 object Kotlin {
@@ -79,6 +87,7 @@ object Kotlin {
     const val activityKTX = "androidx.activity:activity-ktx:${Versions.activityKTX}"
     const val fragmentKTX = "androidx.fragment:fragment-ktx:${Versions.fragmentKTX}"
     const val viewModelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKTX}"
+    const val liveDataKTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveDataKTX}"
 }
 
 object Room {
@@ -111,4 +120,8 @@ object Cicerone{
 
 object Gson{
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
+}
+
+object CarouselPicker{
+    const val carouselPicker = "com.github.GoodieBag:CarouselPicker:${Versions.carouselPicker}"
 }

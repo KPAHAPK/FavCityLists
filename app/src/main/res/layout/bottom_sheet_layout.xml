@@ -2,26 +2,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottom_sheet_container"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="100dp"
+    app:behavior_peekHeight="0dp"
+    android:padding="16dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <View
-        android:id="@+id/bottom_sheet_line"
-        android:layout_width="25dp"
-        android:layout_height="1dp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/slider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="?attr/colorOnSurface"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/bottom_sheet_description_header"
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -31,30 +32,29 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
-        tools:text="Two Clusters and a Comet" />
+        app:layout_constraintTop_toBottomOf="@+id/slider"
+        android:text="Списки городов" />
 
-    <TextView
-        android:id="@+id/bottom_sheet_description"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_lists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header"
-        tools:text="This lovely starfield spans some four full moons." />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header" />
 
-    <TextView
-        android:id="@+id/bottom_sheet_copyright"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description"
-        tools:text="This lovely starfield spans some four full moons." />
+        android:ellipsize="end"
+        android:lines="1"
+        tools:text="Название списка"
+        app:layout_constraintStart_toStartOf="@id/rv_lists"
+        app:layout_constraintEnd_toEndOf="@id/rv_lists"
+        app:layout_constraintTop_toBottomOf="@id/rv_lists"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

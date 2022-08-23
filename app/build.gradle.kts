@@ -35,6 +35,8 @@ dependencies {
     implementation(Kotlin.core)
     implementation(Design.appcompat)
     implementation(Design.material)
+    implementation(Design.constraintLayout)
+    implementation(Design.viewPager2)
     implementation(TestImpl.junit)
     androidTestImplementation(TestImpl.runner)
     androidTestImplementation(TestImpl.espresso)
@@ -57,6 +59,7 @@ dependencies {
     implementation(Kotlin.activityKTX)
     implementation(Kotlin.fragmentKTX)
     implementation(Kotlin.viewModelKTX)
+    implementation(Kotlin.liveDataKTX)
 
 
     //ViewBinding
@@ -64,6 +67,9 @@ dependencies {
 
     //Cicerone
     implementation(Cicerone.cicerone)
+
+    //CarouselPicker
+    implementation(CarouselPicker.carouselPicker)
 
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
