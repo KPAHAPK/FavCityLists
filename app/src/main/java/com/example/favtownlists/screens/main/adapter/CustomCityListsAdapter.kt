@@ -10,7 +10,7 @@ import com.example.favtownlists.databinding.ListItemBinding
 import com.example.favtownlists.repository.room.model.CityListInfoModel
 
 class CustomCityListsAdapter(
-    private val onItemClicked: (v:View, viewType:Int) -> Unit,
+    private val onItemClicked: (v: View, viewType: Int) -> Unit,
 //    private val onHeaderClicked: (View) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

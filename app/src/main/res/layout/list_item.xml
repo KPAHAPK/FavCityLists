@@ -10,6 +10,6 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:src="@drawable/circle"
-        tools:src="@drawable/circle"/>
+        tools:src="@drawable/circle" />
 
 </FrameLayout>

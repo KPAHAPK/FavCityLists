@@ -77,7 +77,7 @@ class CenterZoomLayoutManager(
         }
     }
 
-//    override fun onScrollStateChanged(state: Int) {
+    //    override fun onScrollStateChanged(state: Int) {
 //        super.onScrollStateChanged(state)
 //        if (state == RecyclerView.SCROLL_STATE_IDLE) {
 //            if (onScrollStopListener != null) {

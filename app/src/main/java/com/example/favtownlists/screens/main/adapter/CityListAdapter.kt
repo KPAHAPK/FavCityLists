@@ -3,7 +3,6 @@ package com.example.favtownlists.screens.main.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.favtownlists.databinding.CityItemBinding
 import com.example.favtownlists.repository.room.model.CityModel
@@ -36,6 +35,7 @@ class CityListAdapter : RecyclerView.Adapter<CityListAdapter.CityVH>() {
             CityItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CityVH(binding)
     }
+
     override fun getItemCount(): Int {
         return cityList.size
     }

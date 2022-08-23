@@ -19,7 +19,7 @@ class CityListViewModel @Inject constructor(
 
     private var getCustomCityListJob: Job? = null
 
-//    private val _customCityListSF: MutableSharedFlow<CustomCityListModel> = MutableSharedFlow(1)
+    //    private val _customCityListSF: MutableSharedFlow<CustomCityListModel> = MutableSharedFlow(1)
 //    val customCityListSF: SharedFlow<CustomCityListModel> = _customCityListSF.asSharedFlow()
 //
 //    private val _customCityListsSF: MutableStateFlow<List<CustomCityListModel>> = MutableStateFlow(
@@ -40,22 +40,21 @@ class CityListViewModel @Inject constructor(
     private val _customCityListSF: MutableStateFlow<CustomCityListModel?> = MutableStateFlow(null)
     val customCityListSF: StateFlow<CustomCityListModel?> = _customCityListSF.asStateFlow()
 
-    fun setCities(cities: List<CityModel>){
+    fun setCities(cities: List<CityModel>) {
         _cities.value = cities
     }
 
-    fun setListInfoTab(citiListInfo: CityListInfoModel){
+    fun setListInfoTab(citiListInfo: CityListInfoModel) {
         _citiListInfoTab.value = citiListInfo
     }
 
-    fun setCustomCityList(index: Int){
+    fun setCustomCityList(index: Int) {
         _customCityListSF.value = customCityListsSF.value[index]
     }
 
-    fun setBottomSheetActive(isActive: Boolean){
+    fun setBottomSheetActive(isActive: Boolean) {
         _bottomSheetIsActive.value = isActive
     }
-
 
 
 //    fun getCustomCityListById(id: Int) {
