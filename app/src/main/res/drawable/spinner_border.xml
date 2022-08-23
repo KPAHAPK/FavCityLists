@@ -10,9 +10,4 @@
 
         </shape>
     </item>
-    <item>
-        <bitmap
-            android:gravity="bottom|right"
-            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
-    </item>
 </layer-list>
