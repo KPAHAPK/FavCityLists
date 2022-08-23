@@ -19,7 +19,7 @@ import com.example.favtownlists.databinding.FragmentCityListBinding
 import com.example.favtownlists.screens.Screens
 import com.example.favtownlists.screens.main.adapter.CenterZoomLayoutManager
 import com.example.favtownlists.screens.main.adapter.CityListAdapter
-import com.example.favtownlists.screens.main.adapter.CityListsInfoAdapter
+import com.example.favtownlists.screens.main.adapter.CustomCityListsAdapter
 import com.example.favtownlists.screens.main.adapter.ItemTouchCallBack
 import com.example.favtownlists.utils.ScreenUtils
 import com.github.terrakok.cicerone.Router
@@ -41,7 +41,7 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     private lateinit var bottomSheet: BottomSheetLayoutBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var cityListAdapter: CityListAdapter
-    private lateinit var cityListsInfoAdapter: CityListsInfoAdapter
+    private lateinit var cityListsInfoAdapter: CustomCityListsAdapter
     var initialListId: Int = 0
     private val itemTouchHelper by lazy {
         val itemTouchHelper = ItemTouchCallBack()
@@ -83,22 +83,14 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     private fun setObservers() {
         lifecycleScope.launchWhenStarted {
             viewModel.customCityListsSF.collectLatest { customCityLists ->
-                cityListsInfoAdapter.cityListsInfo = customCityLists.map { it.cityListInfo }
-                with(customCityLists[initialListId]) {
-                    cityListAdapter.cityList = this.cities
-                    val tab3 = binding.tabLayout.getTabAt(2)
-                    val tab3Tittle =
-                        tab3?.customView?.findViewById<TextView>(R.id.tab_name)
-                    val tab3Image =
-                        tab3?.customView?.findViewById<ImageView>(R.id.tab_icon)
-                    tab3Tittle?.text = this.cityListInfo.shortName
-                    tab3Image?.setColorFilter(this.cityListInfo.color)
-                }
-            }
+                cityListsInfoAdapter.customCityLists = customCityLists
         }
         lifecycleScope.launchWhenStarted {
             viewModel.customCityListSF.collectLatest { customCityList ->
+                with(customCityList) {
 
+                }
+            }
             }
         }
     }
@@ -112,7 +104,7 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             defTab?.view?.isClickable = false
             listTab?.view?.isClickable = false
             citiesTab?.view?.setOnClickListener {
-                viewModel.getCustomCityLists()
+                bottomSheet.rvLists.scrollToPosition(1)
             }
             listTab?.customView?.setOnClickListener {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
@@ -143,7 +135,7 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     }
 
     private fun setViewPager() {
-        cityListsInfoAdapter = CityListsInfoAdapter(onItemClicked = { v ->
+        cityListsInfoAdapter = CustomCityListsAdapter(onItemClicked = { v ->
             binding.rvCity.apply {
                 val position = getChildLayoutPosition(v)
                 smoothScrollToPosition(position)
@@ -152,10 +144,9 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             onHeaderClicked = {
                 router.navigateTo(Screens.NewListScreen())
             })
-        cityListsInfoAdapter.cityListsInfo
+        cityListsInfoAdapter.customCityLists
         bottomSheet.rvLists.apply {
             adapter = cityListsInfoAdapter
-
             val centerZoomLayoutManager =
                 CenterZoomLayoutManager(this@CityListFragment.requireContext())
             centerZoomLayoutManager.onItemSelectedListener =
@@ -165,12 +156,17 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
                             smoothScrollToPosition(1)
                         } else {
                             val positionOffset = position - 1
-                            val cityListInfo =
-                                cityListsInfoAdapter.cityListsInfo[positionOffset]
-                            bottomSheet.tvListName.text = cityListInfo.name
-                            binding.tabLayout.getTabAt(2)?.customView?.findViewById<TextView>(R.id.tab_name)?.text =
-                                cityListInfo.shortName
-                            cityListAdapter.cityList =
+                            val customCityList =
+                                cityListsInfoAdapter.customCityLists[positionOffset]
+                            bottomSheet.tvListName.text = customCityList.cityListInfo.name
+                            cityListAdapter.cityList = customCityList.cities
+                            val tab3 = binding.tabLayout.getTabAt(2)
+                            val tab3Tittle =
+                                tab3?.customView?.findViewById<TextView>(R.id.tab_name)
+                            val tab3Image =
+                                tab3?.customView?.findViewById<ImageView>(R.id.tab_icon)
+                            tab3Tittle?.text = customCityList.cityListInfo.shortName
+                            tab3Image?.setColorFilter(customCityList.cityListInfo.color)
                         }
                     }
                 }

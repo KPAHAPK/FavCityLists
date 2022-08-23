@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.favtownlists.R
 import com.example.favtownlists.databinding.ListItemBinding
 import com.example.favtownlists.repository.room.model.CityListInfoModel
+import com.example.favtownlists.repository.room.model.CustomCityListModel
 
-class CityListsInfoAdapter(private val onItemClicked: (View) -> Unit, private val onHeaderClicked: (View) -> Unit) :
+class CustomCityListsAdapter(private val onItemClicked: (View) -> Unit, private val onHeaderClicked: (View) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var cityListsInfo: List<CityListInfoModel>
+    var customCityLists: List<CustomCityListModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -20,9 +21,9 @@ class CityListsInfoAdapter(private val onItemClicked: (View) -> Unit, private va
     private val differ = AsyncListDiffer(this, diffCallback)
 
     inner class ListVH(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(cityListInfo: CityListInfoModel) {
+        fun bind(cityListInfo: CustomCityListModel) {
             binding.apply {
-                listIcon.setColorFilter(cityListInfo.color)
+                listIcon.setColorFilter(cityListInfo.cityListInfo.color)
             }
             binding.root.setOnClickListener { v ->
                 onItemClicked(v)
@@ -75,7 +76,7 @@ class CityListsInfoAdapter(private val onItemClicked: (View) -> Unit, private va
     }
 
     override fun getItemCount(): Int {
-        return cityListsInfo.size + 1
+        return customCityLists.size + 1
     }
 
     companion object {
