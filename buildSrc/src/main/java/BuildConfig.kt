@@ -65,8 +65,6 @@ object Versions {
     //Gson
     const val gson = "2.9.1"
 
-    //CarouselPicker
-    const val carouselPicker = "v1.2"
 
 }
 
@@ -120,8 +118,4 @@ object Cicerone{
 
 object Gson{
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
-}
-
-object CarouselPicker{
-    const val carouselPicker = "com.github.GoodieBag:CarouselPicker:${Versions.carouselPicker}"
 }
