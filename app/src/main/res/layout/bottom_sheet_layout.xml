@@ -35,35 +35,26 @@
         app:layout_constraintTop_toBottomOf="@+id/slider"
         android:text="Списки городов" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_add"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/ic_baseline_add_circle_outline_24"
-        app:layout_constraintBottom_toBottomOf="@id/vp_lists"
-        app:layout_constraintEnd_toStartOf="@id/vp_lists"
-        app:layout_constraintTop_toTopOf="@id/vp_lists" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_lists"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_lists"
         android:layout_width="wrap_content"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@id/btn_add"
+        android:clipToPadding="false"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
-
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/list_name"
+        android:id="@+id/tv_list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
         tools:text="Название списка"
-        app:layout_constraintStart_toStartOf="@id/vp_lists"
-        app:layout_constraintEnd_toEndOf="@id/vp_lists"
-        app:layout_constraintTop_toBottomOf="@id/vp_lists"/>
+        app:layout_constraintStart_toStartOf="@id/rv_lists"
+        app:layout_constraintEnd_toEndOf="@id/rv_lists"
+        app:layout_constraintTop_toBottomOf="@id/rv_lists"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

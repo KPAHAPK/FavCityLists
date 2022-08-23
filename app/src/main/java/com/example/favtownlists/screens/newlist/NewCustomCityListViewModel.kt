@@ -9,6 +9,7 @@ import com.example.favtownlists.repository.room.use_case.InvalidCustomCityListEx
 import com.example.favtownlists.repository.room.use_case.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,7 +54,8 @@ class NewCustomCityListViewModel @Inject constructor(
     }
 
     fun insertToDatabase() {
-        viewModelScope.launch {
+        getCustomCityListJob?.cancelChildren()
+        getCustomCityListJob = viewModelScope.launch {
             try {
                 val cityListInfo = _cityListInfoSF.value
                 val checkedCities = _checkedCitySF.value
@@ -69,8 +71,8 @@ class NewCustomCityListViewModel @Inject constructor(
     }
 
     private fun getCityList() {
-        getCustomCityListJob?.cancel()
-        viewModelScope.launch {
+        getCustomCityListJob?.cancelChildren()
+        getCustomCityListJob = viewModelScope.launch {
             val cityList = useCase.getCityListUseCase()
             _cityListSF.value = cityList
         }
