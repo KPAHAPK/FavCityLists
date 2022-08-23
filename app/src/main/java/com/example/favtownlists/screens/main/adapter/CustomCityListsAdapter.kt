@@ -9,10 +9,13 @@ import com.example.favtownlists.R
 import com.example.favtownlists.databinding.ListItemBinding
 import com.example.favtownlists.repository.room.model.CityListInfoModel
 
-class CityListsInfoAdapter(private val onItemClicked: (View) -> Unit, private val onHeaderClicked: (View) -> Unit) :
+class CustomCityListsAdapter(
+    private val onItemClicked: (v:View, viewType:Int) -> Unit,
+//    private val onHeaderClicked: (View) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var cityListsInfo: List<CityListInfoModel>
+    var customCityLists: List<CityListInfoModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -23,20 +26,22 @@ class CityListsInfoAdapter(private val onItemClicked: (View) -> Unit, private va
         fun bind(cityListInfo: CityListInfoModel) {
             binding.apply {
                 listIcon.setColorFilter(cityListInfo.color)
-            }
-            binding.root.setOnClickListener { v ->
-                onItemClicked(v)
+                root.setOnClickListener { v ->
+                    onItemClicked(v, TYPE_ITEM)
+                }
             }
         }
     }
 
     inner class HeaderVH(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.listIcon.setImageDrawable(
-                itemView.context.resources.getDrawable(R.drawable.ic_baseline_add_circle_outline_24)
-            )
-            binding.root.setOnClickListener { v ->
-                onHeaderClicked(v)
+            binding.apply {
+                listIcon.setImageDrawable(
+                    itemView.context.resources.getDrawable(R.drawable.ic_baseline_add_circle_outline_24)
+                )
+                root.setOnClickListener { v ->
+                    onItemClicked(v, TYPE_HEADER)
+                }
             }
         }
     }
@@ -75,7 +80,7 @@ class CityListsInfoAdapter(private val onItemClicked: (View) -> Unit, private va
     }
 
     override fun getItemCount(): Int {
-        return cityListsInfo.size + 1
+        return customCityLists.size + 1
     }
 
     companion object {

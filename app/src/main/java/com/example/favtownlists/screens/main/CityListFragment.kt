@@ -19,13 +19,15 @@ import com.example.favtownlists.databinding.FragmentCityListBinding
 import com.example.favtownlists.screens.Screens
 import com.example.favtownlists.screens.main.adapter.CenterZoomLayoutManager
 import com.example.favtownlists.screens.main.adapter.CityListAdapter
-import com.example.favtownlists.screens.main.adapter.CityListsInfoAdapter
+import com.example.favtownlists.screens.main.adapter.CustomCityListsAdapter
 import com.example.favtownlists.screens.main.adapter.ItemTouchCallBack
 import com.example.favtownlists.utils.ScreenUtils
 import com.github.terrakok.cicerone.Router
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 
@@ -41,8 +43,8 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
     private lateinit var bottomSheet: BottomSheetLayoutBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var cityListAdapter: CityListAdapter
-    private lateinit var cityListsInfoAdapter: CityListsInfoAdapter
-    var initialListId: Int = 0
+    private lateinit var cityListsInfoAdapter: CustomCityListsAdapter
+    var initialIndex: Int = 0
     private val itemTouchHelper by lazy {
         val itemTouchHelper = ItemTouchCallBack()
         ItemTouchHelper(itemTouchHelper)
@@ -56,16 +58,57 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
         setRecyclerView()
     }
 
+
+    private fun setObservers() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.customCityListsSF.collectLatest { customCityLists ->
+                cityListsInfoAdapter.customCityLists = customCityLists.map { it.cityListInfo }
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.customCityListSF.onEach { customCityList ->
+                customCityList?.let { list ->
+                    cityListAdapter.cityList = list.cities
+                    val tab3 = binding.tabLayout.getTabAt(2)
+                    val tab3Tittle =
+                        tab3?.customView?.findViewById<TextView>(R.id.tab_name)
+                    val tab3Image =
+                        tab3?.customView?.findViewById<ImageView>(R.id.tab_icon)
+                    tab3Tittle?.text = list.cityListInfo.shortName
+                    tab3Image?.setColorFilter(list.cityListInfo.color)
+                    bottomSheet.tvListName.text = list.cityListInfo.name
+                    cityListAdapter.cityList = list.cities
+                }
+            }.collect()
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.bottomSheetIsActive.collectLatest { isActive ->
+                if (isActive) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                    bottomSheet.rvLists.scrollToPosition(initialIndex + 1)
+                    bottomSheet.rvLists.smoothScrollToPosition(initialIndex + 1)
+
+
+                } else {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+
+        }
+    }
+
+
     private fun initBottomSheet() {
         bottomSheet = binding.includedBottomSheet
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet.container)
-
-
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     binding.background.visibility = View.GONE
+                    viewModel.setBottomSheetActive(false)
                 }
             }
 
@@ -76,32 +119,9 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
                 }
             }
         })
-
-        setViewPager()
+        setRecyclerViewCityInfo()
     }
 
-    private fun setObservers() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.customCityListsSF.collectLatest { customCityLists ->
-                cityListsInfoAdapter.cityListsInfo = customCityLists.map { it.cityListInfo }
-                with(customCityLists[initialListId]) {
-                    cityListAdapter.cityList = this.cities
-                    val tab3 = binding.tabLayout.getTabAt(2)
-                    val tab3Tittle =
-                        tab3?.customView?.findViewById<TextView>(R.id.tab_name)
-                    val tab3Image =
-                        tab3?.customView?.findViewById<ImageView>(R.id.tab_icon)
-                    tab3Tittle?.text = this.cityListInfo.shortName
-                    tab3Image?.setColorFilter(this.cityListInfo.color)
-                }
-            }
-        }
-        lifecycleScope.launchWhenStarted {
-            viewModel.customCityListSF.collectLatest { customCityList ->
-
-            }
-        }
-    }
 
     private fun initButton() {
         binding.tabLayout.apply {
@@ -112,11 +132,10 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             defTab?.view?.isClickable = false
             listTab?.view?.isClickable = false
             citiesTab?.view?.setOnClickListener {
-                viewModel.getCustomCityLists()
+                viewModel.setCustomCityList(initialIndex)
             }
             listTab?.customView?.setOnClickListener {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-                bottomSheet.rvLists.smoothScrollToPosition(1)
+                viewModel.setBottomSheetActive(true)
                 listTab.select()
             }
         }
@@ -142,20 +161,24 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
 
     }
 
-    private fun setViewPager() {
-        cityListsInfoAdapter = CityListsInfoAdapter(onItemClicked = { v ->
-            binding.rvCity.apply {
-                val position = getChildLayoutPosition(v)
-                smoothScrollToPosition(position)
+    private fun setRecyclerViewCityInfo() {
+        cityListsInfoAdapter = CustomCityListsAdapter { v, viewType ->
+            when (viewType) {
+                CustomCityListsAdapter.TYPE_ITEM -> {
+                    binding.rvCity.also {
+                        val position = it.getChildLayoutPosition(v)
+                        it.smoothScrollToPosition(position)
+                    }
+                }
+                CustomCityListsAdapter.TYPE_HEADER -> {
+                    viewModel.setBottomSheetActive(false)
+                    router.navigateTo(Screens.NewListScreen())
+                }
             }
-        },
-            onHeaderClicked = {
-                router.navigateTo(Screens.NewListScreen())
-            })
-        cityListsInfoAdapter.cityListsInfo
+        }
+        cityListsInfoAdapter.customCityLists
         bottomSheet.rvLists.apply {
             adapter = cityListsInfoAdapter
-
             val centerZoomLayoutManager =
                 CenterZoomLayoutManager(this@CityListFragment.requireContext())
             centerZoomLayoutManager.onItemSelectedListener =
@@ -165,12 +188,29 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
                             smoothScrollToPosition(1)
                         } else {
                             val positionOffset = position - 1
-                            val cityListInfo =
-                                cityListsInfoAdapter.cityListsInfo[positionOffset]
-                            bottomSheet.tvListName.text = cityListInfo.name
-                            binding.tabLayout.getTabAt(2)?.customView?.findViewById<TextView>(R.id.tab_name)?.text =
-                                cityListInfo.shortName
-                            cityListAdapter.cityList =
+                            viewModel.setCustomCityList(positionOffset)
+//                            val customCityList = viewModel.customCityListsSF.value[positionOffset]
+//                            bottomSheet.tvListName.text = customCityList.cityListInfo.name
+//                            cityListAdapter.cityList = customCityList.cities
+
+//                            val tab3 = binding.tabLayout.getTabAt(2)
+//                            val tab3Tittle =
+//                                tab3?.customView?.findViewById<TextView>(R.id.tab_name)
+//                            val tab3Image =
+//                                tab3?.customView?.findViewById<ImageView>(R.id.tab_icon)
+//                            tab3Tittle?.text = customCityList.cityListInfo.shortName
+//                            tab3Image?.setColorFilter(customCityList.cityListInfo.color)
+                        }
+                    }
+                }
+            centerZoomLayoutManager.onScrollStopListener =
+                object : CenterZoomLayoutManager.OnScrollStopListener {
+                    override fun selectedView(position: Int) {
+                        if (position == 0) {
+                            smoothScrollToPosition(1)
+                        } else {
+                            val positionOffset = position - 1
+                            viewModel.setCustomCityList(positionOffset)
                         }
                     }
                 }
@@ -186,6 +226,7 @@ class CityListFragment : Fragment(R.layout.fragment_city_list) {
             linearSnapHelper.attachToRecyclerView(this)
         }
     }
+
 
     companion object {
         @JvmStatic

@@ -77,6 +77,30 @@ class CenterZoomLayoutManager(
         }
     }
 
+//    override fun onScrollStateChanged(state: Int) {
+//        super.onScrollStateChanged(state)
+//        if (state == RecyclerView.SCROLL_STATE_IDLE) {
+//            if (onScrollStopListener != null) {
+//                var selected = 0
+//                var lastHeight = 0f
+//                for (i in 0 until childCount) {
+//                    val child = getChildAt(i) ?: continue
+//                    if (lastHeight < child.scaleY) {
+//                        lastHeight = child.scaleY
+//                        selected = i
+//                    }
+//                }
+//                onScrollStopListener?.selectedView(selected)
+//            }
+//        }
+//    }
+//
+    var onScrollStopListener: OnScrollStopListener? = null
+
+    interface OnScrollStopListener {
+        fun selectedView(position: Int)
+    }
+
     private fun getRecyclerViewCenterX(): Int {
         return (paddingRight - paddingLeft) / 2 + paddingLeft
     }
