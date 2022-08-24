@@ -34,6 +34,8 @@ subprojects {
                 defaultConfig {
                     minSdkVersion Config.min_sdk
                     targetSdkVersion Config.target_sdk
+                    versionName Releases.version_name
+                    versionCode Releases.version_code
                     javaCompileOptions {
                         annotationProcessorOptions {
                             arguments += ["room.schemaLocation":

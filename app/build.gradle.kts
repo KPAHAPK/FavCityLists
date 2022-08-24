@@ -23,6 +23,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug") {
+            versionNameSuffix = "-debug"
+        }
     }
 
     kotlinOptions {
@@ -67,9 +70,6 @@ dependencies {
 
     //Cicerone
     implementation(Cicerone.cicerone)
-
-    //CarouselPicker
-    implementation(CarouselPicker.carouselPicker)
 
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
