@@ -19,6 +19,7 @@ class CityListCheckboxedAdapter(
 ) :
     RecyclerView.Adapter<CityListCheckboxedAdapter.CityCheckboxedVH>() {
 
+    //Передаем StateFLow и lifecycleCoroutineScope для отслеживания выбранных городов
     init {
         lifecycleCoroutineScope.launchWhenStarted {
             checkedCity.onEach {

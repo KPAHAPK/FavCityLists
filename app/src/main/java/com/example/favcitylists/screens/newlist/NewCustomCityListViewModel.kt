@@ -2,6 +2,7 @@ package com.example.favcitylists.screens.newlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.favcitylists.R
 import com.example.favcitylists.repository.room.model.CityListInfoModel
 import com.example.favcitylists.repository.room.model.CityModel
 import com.example.favcitylists.repository.room.model.CustomCityListModel
@@ -18,22 +19,27 @@ import javax.inject.Inject
 class NewCustomCityListViewModel @Inject constructor(
     private val useCase: UseCases,
 ) : ViewModel() {
+
     private var getCustomCityListJob: Job? = null
 
+    //Для добавления в базу
     private val _cityListInfoSF: MutableStateFlow<CityListInfoModel> =
         MutableStateFlow(CityListInfoModel(null, "", "", 0))
     val cityListInfoSF: StateFlow<CityListInfoModel>
         get() = _cityListInfoSF
 
+    //Для загрузки списка городов
     private val _cityListSF: MutableStateFlow<List<CityModel>> =
         MutableStateFlow(listOf())
     val cityListSF: StateFlow<List<CityModel>>
         get() = _cityListSF
 
+    //Для добавления в базу отмеченных городов
     private val _checkedCitySF: MutableStateFlow<List<CityModel>> = MutableStateFlow(listOf())
     val checkedCitySF: StateFlow<List<CityModel>>
         get() = _checkedCitySF.asStateFlow()
 
+    //Успех или ошибка при сохранении списка
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 

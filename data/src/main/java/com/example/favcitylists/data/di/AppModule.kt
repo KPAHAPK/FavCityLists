@@ -1,8 +1,6 @@
 package com.example.favcitylists.data.di
 
-import android.app.Application
 import android.content.Context
-import android.content.res.Resources
 import androidx.room.Room
 import com.example.favcitylists.data.data_source.CityListsDataBase
 import com.example.favcitylists.data.data_source.MainDao
@@ -42,9 +40,6 @@ object AppModule {
     fun provideMainDao(database: CityListsDataBase): MainDao {
         return database.mainDao
     }
-
-    @Provides
-    fun provideResources(app: Application): Resources = app.resources
 
     @Provides
     @Singleton

@@ -8,5 +8,6 @@
     <string name="color_red">Красный</string>
     <string name="color_blue">Синий</string>
     <string name="color_yellow">Желтый</string>
+    <string name="error_save_unknown">Не могу сохранить список</string>
 
 </resources>

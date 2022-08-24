@@ -87,7 +87,12 @@ class NewCustomCityListFragment : Fragment(R.layout.fragment_new_list) {
                     }
                     is NewCustomCityListViewModel.UIEvent.ShowSnackBar -> {
                         val snackbar =
-                            Snackbar.make(binding.root, event.message, Snackbar.LENGTH_SHORT)
+                            Snackbar.make(
+                                this@NewCustomCityListFragment.requireContext(),
+                                binding.root,
+                                event.message,
+                                Snackbar.LENGTH_SHORT
+                            )
                         snackbar.show()
                     }
                 }

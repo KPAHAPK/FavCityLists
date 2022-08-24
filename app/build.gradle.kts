@@ -23,6 +23,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug") {
+            versionNameSuffix = "-debug"
+        }
     }
 
     kotlinOptions {

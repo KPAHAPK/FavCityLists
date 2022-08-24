@@ -1,10 +1,17 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 
 dependencies {
+
+    //Hilt
+    implementation(Hilt.hiltAndroid)
+    kapt(Hilt.hiltCompiler)
+    kapt(Hilt.hiltCompiler2)
 
     //Coroutines
     implementation(Kotlin.coroutines_core)
