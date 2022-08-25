@@ -10,7 +10,7 @@
 - Room
 - Hilt
 - Cicerone
-- ViewbindingPropertyDelegate
+- Viewbinding
 - Kotlin DSL
 
 #№ Возможности приложения
